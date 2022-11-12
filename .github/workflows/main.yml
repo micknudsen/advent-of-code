@@ -1,0 +1,43 @@
+name: CI
+
+on: [push]
+
+jobs:
+
+  tests:
+
+    name: "Tests"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Check code quality and run unit tests
+        run: |
+
+          # Install software
+          sudo apt-get install jq
+          pip install coverage flake8 mypy
+
+          # Run tests one at a time
+          find $(pwd -P) -name code.py | sort -r | while read FILE;
+          do
+
+            echo "Processing $FILE"
+            cd $(dirname ${FILE})
+
+            # Check code quality
+            mypy code.py
+            flake8 code.py
+
+            # Check code coverage
+            coverage run -m unittest code.py && coverage json
+            if [[ ! "$(cat coverage.json | jq .totals.percent_covered)" == "100" ]]; then
+              echo "Coverage is below 100%"
+              exit 1
+            fi
+
+          done
