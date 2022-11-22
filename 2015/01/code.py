@@ -38,6 +38,14 @@ class TestCode(unittest.TestCase):
         self.assertEqual(deliver_presents(instructions=")))"), -3)
         self.assertEqual(deliver_presents(instructions=")())())"), -3)
 
+    def test_deliver_presents_with_stop(self) -> None:
+        self.assertEqual(
+            deliver_presents(instructions=")", stop_at_floor=-1), 1
+        )
+        self.assertEqual(
+            deliver_presents(instructions="()())", stop_at_floor=-1), 5
+        )
+
     def test_deliver_presents_invalid_instruction(self) -> None:
         with self.assertRaises(InvalidInstructionError):
             deliver_presents(instructions=")[(")
