@@ -41,3 +41,12 @@ class TestCode(unittest.TestCase):
     def test_deliver_presents_invalid_instruction(self) -> None:
         with self.assertRaises(InvalidInstructionError):
             deliver_presents(instructions=")[(")
+
+
+class TestPuzzle(unittest.TestCase):
+    def setUp(self) -> None:
+        with open("input.txt") as f:
+            self.instructions = f.read()
+
+    def test_part_one(self) -> None:
+        self.assertEqual(deliver_presents(instructions=self.instructions), 232)
