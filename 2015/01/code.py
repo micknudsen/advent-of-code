@@ -77,3 +77,9 @@ class TestPuzzle(unittest.TestCase):
 
     def test_part_one(self) -> None:
         self.assertEqual(deliver_presents(instructions=self.instructions), 232)
+
+    def test_part_two(self) -> None:
+        self.assertEqual(
+            deliver_presents(instructions=self.instructions, stop_at_floor=-1),
+            1783,
+        )
