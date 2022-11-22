@@ -30,7 +30,7 @@ jobs:
             cd $(dirname ${FILE})
 
             # Check code quality
-            black --check code.py
+            black --check -l 79 code.py
             mypy code.py
             flake8 code.py
 
