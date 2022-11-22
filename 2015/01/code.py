@@ -1,6 +1,6 @@
 import unittest
 
-from typing import Iterable
+from typing import Iterable, Optional
 
 
 class InvalidInstructionError(Exception):
@@ -9,20 +9,35 @@ class InvalidInstructionError(Exception):
         super().__init__(self.message)
 
 
-def deliver_presents(instructions: Iterable[str]) -> int:
-    """Santa delivers presents starting at floor 0 based on `instructions`
-    given as a sequence of characters. Here "(" (resp. ")") means go one floor
-    up (resp. down). Any other instruction raises an exception. Return the
-    final floor number."""
+class FloorNeverReachedError(Exception):
+    def __init__(self, floor: int) -> None:
+        self.message = f"Never reached floor {floor}"
+        super().__init__(self.message)
 
+
+def deliver_presents(
+    instructions: Iterable[str], stop_at_floor: Optional[int] = None
+) -> int:
+    """Santa delivers presents starting at floor `0` based on `instructions`
+    given as a sequence of characters. Here `(` (resp. `)`) means go one floor
+    up (resp. down). Any other instruction raises an exception.
+
+    If `stop_at_floor` is specified, Santa stops when reaching that floor,
+    and the total floor count is returned. If the floor is never reached, an
+    exception is raised. If `stop_at_floor` is not specified, the function
+    returns the final floor reached after following all `instructions`."""
     floor = 0
-    for instruction in instructions:
+    for count, instruction in enumerate(instructions, start=1):
         if instruction == "(":
             floor += 1
         elif instruction == ")":
             floor -= 1
         else:
             raise InvalidInstructionError(instruction=instruction)
+        if floor == stop_at_floor:
+            return count
+    if stop_at_floor is not None:
+        raise FloorNeverReachedError(floor=stop_at_floor)
     return floor
 
 
@@ -49,6 +64,10 @@ class TestCode(unittest.TestCase):
     def test_deliver_presents_invalid_instruction(self) -> None:
         with self.assertRaises(InvalidInstructionError):
             deliver_presents(instructions=")[(")
+
+    def test_deliver_presents_with_stop_floor_never_reached(self) -> None:
+        with self.assertRaises(FloorNeverReachedError):
+            deliver_presents(instructions="(", stop_at_floor=-1)
 
 
 class TestPuzzle(unittest.TestCase):
