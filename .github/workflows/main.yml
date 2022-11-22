@@ -20,7 +20,7 @@ jobs:
 
           # Install software
           sudo apt-get install jq
-          pip install coverage flake8 mypy
+          pip install coverage flake8 mypy black
 
           # Run tests one at a time
           find $(pwd -P) -name code.py | sort -r | while read FILE;
@@ -30,6 +30,7 @@ jobs:
             cd $(dirname ${FILE})
 
             # Check code quality
+            black --check code.py
             mypy code.py
             flake8 code.py
 
