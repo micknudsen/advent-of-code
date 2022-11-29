@@ -47,3 +47,12 @@ class TestPuzzle(unittest.TestCase):
                 lenght=lenght, width=width, height=height
             )
         self.assertEqual(total_paper, 1586300)
+
+    def test_part_two(self) -> None:
+        total_ribbon = 0
+        for dimension in self.dimensions:
+            lenght, width, height = map(int, dimension.split("x"))
+            total_ribbon += ribbon_needed(
+                lenght=lenght, width=width, height=height
+            )
+        self.assertEqual(total_ribbon, 3737498)
