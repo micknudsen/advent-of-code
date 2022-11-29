@@ -36,23 +36,24 @@ class TestCode(unittest.TestCase):
 
 class TestPuzzle(unittest.TestCase):
     def setUp(self) -> None:
+        """Puzzle input is a list of box dimonsions. Calculate the total
+        amount of paper and ribbon needed to wrap all the boxes."""
+
+        self.total_paper = 0
+        self.total_ribbon = 0
+
         with open("input.txt") as f:
-            self.dimensions = f.read().splitlines()
+            for dimension in f.read().splitlines():
+                lenght, width, height = map(int, dimension.split("x"))
+                self.total_paper += paper_needed(
+                    lenght=lenght, width=width, height=height
+                )
+                self.total_ribbon += ribbon_needed(
+                    lenght=lenght, width=width, height=height
+                )
 
     def test_part_one(self) -> None:
-        total_paper = 0
-        for dimension in self.dimensions:
-            lenght, width, height = map(int, dimension.split("x"))
-            total_paper += paper_needed(
-                lenght=lenght, width=width, height=height
-            )
-        self.assertEqual(total_paper, 1586300)
+        self.assertEqual(self.total_paper, 1586300)
 
     def test_part_two(self) -> None:
-        total_ribbon = 0
-        for dimension in self.dimensions:
-            lenght, width, height = map(int, dimension.split("x"))
-            total_ribbon += ribbon_needed(
-                lenght=lenght, width=width, height=height
-            )
-        self.assertEqual(total_ribbon, 3737498)
+        self.assertEqual(self.total_ribbon, 3737498)
