@@ -10,6 +10,20 @@ def paper_needed(lenght: int, width: int, height: int) -> int:
     return 2 * sum(areas) + min(areas)
 
 
+def ribbon_needed(lenght: int, width: int, height: int) -> int:
+    """To wrap a box, the elves need a bow made out of ribbon. The
+    required lenght is the smallest perimeter of any one face. An
+    additional amount of ribbon of length equal to the volume of
+    the box is needed. The elves work in mysterious ways."""
+
+    perimeters = [
+        2 * (lenght + width),
+        2 * (width + height),
+        2 * (height + lenght),
+    ]
+    return min(perimeters) + lenght * width * height
+
+
 class TestCode(unittest.TestCase):
     def test_paper_needed(self) -> None:
         self.assertEqual(paper_needed(lenght=2, width=3, height=4), 58)
