@@ -1,5 +1,13 @@
 import unittest
 
+from dataclasses import dataclass
+
+
+@dataclass
+class Coordinate:
+    x: int
+    y: int
+
 
 class TestCode(unittest.TestCase):
     def test_coordinate_equality(self):
