@@ -54,3 +54,12 @@ class TestCode(unittest.TestCase):
     def test_present_delivered_with_invalid_direction(self) -> None:
         with self.assertRaises(InvalidDirectionError):
             presents_delivered(directions="x")
+
+
+class TestPuzzle(unittest.TestCase):
+    def setUp(self) -> None:
+        with open("input.txt") as f:
+            self.directions = f.read()
+
+    def test_part_one(self) -> None:
+        self.assertEqual(presents_delivered(directions=self.directions), 2565)
