@@ -63,3 +63,14 @@ class TestPuzzle(unittest.TestCase):
 
     def test_part_one(self) -> None:
         self.assertEqual(len(houses_visited(directions=self.directions)), 2565)
+
+    def test_part_two(self) -> None:
+        visited_by_santa = houses_visited(directions=self.directions[::2])
+        visited_by_robo_santa = houses_visited(
+            directions=self.directions[1::2]
+        )
+
+        self.assertEqual(
+            len(visited_by_santa | visited_by_robo_santa),
+            2639,
+        )
