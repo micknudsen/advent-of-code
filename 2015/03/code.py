@@ -32,16 +32,17 @@ def houses_visited(directions: Iterable[str]) -> Set[House]:
     visited: set[House] = {current}
 
     for direction in directions:
-        if direction == "^":
-            current = House(current.x, current.y + 1)
-        elif direction == "v":
-            current = House(current.x, current.y - 1)
-        elif direction == ">":
-            current = House(current.x + 1, current.y)
-        elif direction == "<":
-            current = House(current.x - 1, current.y)
-        else:
-            raise InvalidDirectionError(direction)
+        match direction:
+            case "^":
+                current = House(current.x, current.y + 1)
+            case "v":
+                current = House(current.x, current.y - 1)
+            case ">":
+                current = House(current.x + 1, current.y)
+            case "<":
+                current = House(current.x - 1, current.y)
+            case _:
+                raise InvalidDirectionError(direction)
 
         visited.add(current)
 
