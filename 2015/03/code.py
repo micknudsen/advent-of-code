@@ -4,6 +4,12 @@ from dataclasses import dataclass
 from typing import Iterable
 
 
+class InvalidDirectionError(Exception):
+    def __init__(self, direction: str) -> None:
+        self.message = f"Invalid direction: {direction}"
+        super().__init__(self.message)
+
+
 @dataclass
 class Coordinate:
     x: int
@@ -28,7 +34,7 @@ def presents_delivered(directions: Iterable[str]) -> int:
         elif direction == "<":
             current = Coordinate(current.x - 1, current.y)
         else:
-            raise ValueError(f"Unknown direction: {direction}")
+            raise InvalidDirectionError(direction)
 
         visited.add(current)
 
