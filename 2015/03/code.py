@@ -1,7 +1,7 @@
 import unittest
 
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Iterable, Set
 
 
 class InvalidDirectionError(Exception):
@@ -19,7 +19,7 @@ class House:
         return hash((self.x, self.y))
 
 
-def presents_delivered(directions: Iterable[str]) -> int:
+def houses_visited(directions: Iterable[str]) -> Set[House]:
 
     current: House = House(x=0, y=0)
     visited: set[House] = {current}
@@ -38,7 +38,7 @@ def presents_delivered(directions: Iterable[str]) -> int:
 
         visited.add(current)
 
-    return len(visited)
+    return visited
 
 
 class TestCode(unittest.TestCase):
@@ -46,14 +46,14 @@ class TestCode(unittest.TestCase):
         self.assertEqual(House(x=1, y=1), House(x=1, y=1))
         self.assertNotEqual(House(x=1, y=1), House(x=1, y=2))
 
-    def test_presents_delivered(self) -> None:
-        self.assertEqual(presents_delivered(directions=">"), 2)
-        self.assertEqual(presents_delivered(directions="^>v<"), 4)
-        self.assertEqual(presents_delivered(directions="^v^v^v^v^v"), 2)
+    def test_houses_visited(self) -> None:
+        self.assertEqual(len(houses_visited(directions=">")), 2)
+        self.assertEqual(len(houses_visited(directions="^>v<")), 4)
+        self.assertEqual(len(houses_visited(directions="^v^v^v^v^v")), 2)
 
-    def test_present_delivered_with_invalid_direction(self) -> None:
+    def test_houses_visited_with_invalid_direction(self) -> None:
         with self.assertRaises(InvalidDirectionError):
-            presents_delivered(directions="x")
+            houses_visited(directions="x")
 
 
 class TestPuzzle(unittest.TestCase):
@@ -62,4 +62,4 @@ class TestPuzzle(unittest.TestCase):
             self.directions = f.read()
 
     def test_part_one(self) -> None:
-        self.assertEqual(presents_delivered(directions=self.directions), 2565)
+        self.assertEqual(len(houses_visited(directions=self.directions)), 2565)
