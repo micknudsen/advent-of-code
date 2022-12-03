@@ -2,11 +2,11 @@ import hashlib
 import unittest
 
 
-def mine_coin(key: str) -> int:
+def mine_coin(key: str, hardness: int = 5) -> int:
     number = 1
     while True:
         digest = hashlib.md5(f"{key}{number}".encode()).hexdigest()
-        if digest.startswith("00000"):
+        if digest.startswith("0" * hardness):
             return number
         number += 1
 
