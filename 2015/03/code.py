@@ -9,6 +9,9 @@ class Coordinate:
     x: int
     y: int
 
+    def __hash__(self) -> int:
+        return hash((self.x, self.y))
+
 
 def presents_delivered(directions: Iterable[str]) -> int:
 
