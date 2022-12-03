@@ -15,3 +15,11 @@ class TestCode(unittest.TestCase):
     def test_mine_coin(self) -> None:
         self.assertEqual(mine_coin("abcdef"), 609043)
         self.assertEqual(mine_coin("pqrstuv"), 1048970)
+
+
+class TestPuzzle(unittest.TestCase):
+    def setUp(self) -> None:
+        self.key = "iwrupvqb"
+
+    def test_part_one(self) -> None:
+        self.assertEqual(mine_coin(key=self.key), 346386)
