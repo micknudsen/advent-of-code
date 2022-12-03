@@ -23,3 +23,6 @@ class TestPuzzle(unittest.TestCase):
 
     def test_part_one(self) -> None:
         self.assertEqual(mine_coin(key=self.key), 346386)
+
+    def test_part_two(self) -> None:
+        self.assertEqual(mine_coin(key=self.key, hardness=6), 9958218)
