@@ -30,12 +30,13 @@ def deliver_presents(
     floor = 0
 
     for count, instruction in enumerate(instructions, start=1):
-        if instruction == "(":
-            floor += 1
-        elif instruction == ")":
-            floor -= 1
-        else:
-            raise InvalidInstructionError(instruction=instruction)
+        match instruction:
+            case "(":
+                floor += 1
+            case ")":
+                floor -= 1
+            case _:
+                raise InvalidInstructionError(instruction=instruction)
         if floor == stop:
             return count
 
