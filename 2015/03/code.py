@@ -11,7 +11,7 @@ class InvalidDirectionError(Exception):
 
 
 @dataclass
-class Coordinate:
+class House:
     x: int
     y: int
 
@@ -21,18 +21,18 @@ class Coordinate:
 
 def presents_delivered(directions: Iterable[str]) -> int:
 
-    current: Coordinate = Coordinate(0, 0)
-    visited: set[Coordinate] = {current}
+    current: House = House(x=0, y=0)
+    visited: set[House] = {current}
 
     for direction in directions:
         if direction == "^":
-            current = Coordinate(current.x, current.y + 1)
+            current = House(current.x, current.y + 1)
         elif direction == "v":
-            current = Coordinate(current.x, current.y - 1)
+            current = House(current.x, current.y - 1)
         elif direction == ">":
-            current = Coordinate(current.x + 1, current.y)
+            current = House(current.x + 1, current.y)
         elif direction == "<":
-            current = Coordinate(current.x - 1, current.y)
+            current = House(current.x - 1, current.y)
         else:
             raise InvalidDirectionError(direction)
 
@@ -42,9 +42,9 @@ def presents_delivered(directions: Iterable[str]) -> int:
 
 
 class TestCode(unittest.TestCase):
-    def test_coordinate_equality(self):
-        self.assertEqual(Coordinate(x=1, y=1), Coordinate(x=1, y=1))
-        self.assertNotEqual(Coordinate(x=1, y=1), Coordinate(x=1, y=2))
+    def test_house_equality(self):
+        self.assertEqual(House(x=1, y=1), House(x=1, y=1))
+        self.assertNotEqual(House(x=1, y=1), House(x=1, y=2))
 
     def test_presents_delivered(self) -> None:
         self.assertEqual(presents_delivered(directions=">"), 2)
