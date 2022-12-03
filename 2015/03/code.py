@@ -1,12 +1,35 @@
 import unittest
 
 from dataclasses import dataclass
+from typing import Iterable
 
 
 @dataclass
 class Coordinate:
     x: int
     y: int
+
+
+def presents_delivered(directions: Iterable[str]) -> int:
+
+    current: Coordinate = Coordinate(0, 0)
+    visited: set[Coordinate] = {current}
+
+    for direction in directions:
+        if direction == "^":
+            current = Coordinate(current.x, current.y + 1)
+        elif direction == "v":
+            current = Coordinate(current.x, current.y - 1)
+        elif direction == ">":
+            current = Coordinate(current.x + 1, current.y)
+        elif direction == "<":
+            current = Coordinate(current.x - 1, current.y)
+        else:
+            raise ValueError(f"Unknown direction: {direction}")
+
+        visited.add(current)
+
+    return len(visited)
 
 
 class TestCode(unittest.TestCase):
