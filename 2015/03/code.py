@@ -50,3 +50,7 @@ class TestCode(unittest.TestCase):
         self.assertEqual(presents_delivered(directions=">"), 2)
         self.assertEqual(presents_delivered(directions="^>v<"), 4)
         self.assertEqual(presents_delivered(directions="^v^v^v^v^v"), 2)
+
+    def test_present_delivered_with_invalid_direction(self) -> None:
+        with self.assertRaises(InvalidDirectionError):
+            presents_delivered(directions="x")
