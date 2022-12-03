@@ -12,6 +12,9 @@ class InvalidDirectionError(Exception):
 
 @dataclass
 class House:
+    """When it comes to houses, all that
+    matters is location, location, location!"""
+
     x: int
     y: int
 
@@ -20,6 +23,10 @@ class House:
 
 
 def houses_visited(directions: Iterable[str]) -> Set[House]:
+    """Santa visits houses starting at (0, 0) based on directions. He
+    can either go north ("^"), south ("v"), east (">"), or west ("<").
+    He will refuse to go in any other direction, and he willraise an
+    exception if he is asked to do so!"""
 
     current: House = House(x=0, y=0)
     visited: set[House] = {current}
@@ -65,6 +72,9 @@ class TestPuzzle(unittest.TestCase):
         self.assertEqual(len(houses_visited(directions=self.directions)), 2565)
 
     def test_part_two(self) -> None:
+        """Santa an Robo-Santa have had too much eggnog, and they share the
+        work by taking turns to follow directions."""
+
         visited_by_santa = houses_visited(directions=self.directions[::2])
         visited_by_robo_santa = houses_visited(
             directions=self.directions[1::2]
