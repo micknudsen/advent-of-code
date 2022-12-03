@@ -23,7 +23,8 @@ class TestCode(unittest.TestCase):
 
 class TestPuzzle(unittest.TestCase):
     def setUp(self) -> None:
-        self.key = "iwrupvqb"
+        with open("input.txt") as f:
+            self.key = f.read()
 
     def test_part_one(self) -> None:
         self.assertEqual(mine_coin(key=self.key, hardness=5), 346386)
