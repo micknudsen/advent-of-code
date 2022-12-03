@@ -2,7 +2,11 @@ import hashlib
 import unittest
 
 
-def mine_coin(key: str, hardness: int = 5) -> int:
+def mine_coin(key: str, hardness: int) -> int:
+    """Given a key string, mining an AdventCoin requires finding a
+    number (not starting with zero), such than the MD5 hash of the
+    key followed by the number starts with a given number of zeros."""
+
     number = 1
     while True:
         digest = hashlib.md5(f"{key}{number}".encode()).hexdigest()
@@ -13,8 +17,8 @@ def mine_coin(key: str, hardness: int = 5) -> int:
 
 class TestCode(unittest.TestCase):
     def test_mine_coin(self) -> None:
-        self.assertEqual(mine_coin("abcdef"), 609043)
-        self.assertEqual(mine_coin("pqrstuv"), 1048970)
+        self.assertEqual(mine_coin("abcdef", hardness=5), 609043)
+        self.assertEqual(mine_coin("pqrstuv", hardness=5), 1048970)
 
 
 class TestPuzzle(unittest.TestCase):
@@ -22,7 +26,7 @@ class TestPuzzle(unittest.TestCase):
         self.key = "iwrupvqb"
 
     def test_part_one(self) -> None:
-        self.assertEqual(mine_coin(key=self.key), 346386)
+        self.assertEqual(mine_coin(key=self.key, hardness=5), 346386)
 
     def test_part_two(self) -> None:
         self.assertEqual(mine_coin(key=self.key, hardness=6), 9958218)
