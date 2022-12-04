@@ -3,12 +3,15 @@ import unittest
 
 def is_nice(message: str) -> bool:
 
+    # Message must contain at least three vowels.
     if sum(1 for char in message if char in "aeiou") < 3:
         return False
 
+    # Message must contain at least one letter that appears twice in a row.
     if all(message[i] != message[i + 1] for i in range(len(message) - 1)):
         return False
 
+    # Message must not contain the strings "ab", "cd", "pq", or "xy".
     if any(
         message[i : i + 2] in ["ab", "cd", "pq", "xy"]
         for i in range(len(message) - 1)
@@ -20,11 +23,15 @@ def is_nice(message: str) -> bool:
 
 def is_very_nice(message: str) -> bool:
 
+    # Message must contain a pair of any two letters that appears at least
+    # twice in the string without overlapping.
     if not any(
         message[i : i + 2] in message[i + 2 :] for i in range(len(message) - 2)
     ):
         return False
 
+    # Message must contain at least one letter which repeats with exactly
+    # one letter between them.
     if not any(message[i] == message[i + 2] for i in range(len(message) - 2)):
         return False
 
