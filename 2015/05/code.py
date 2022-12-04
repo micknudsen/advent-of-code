@@ -18,6 +18,19 @@ def is_nice(message: str) -> bool:
     return True
 
 
+def is_very_nice(message: str) -> bool:
+
+    if not any(
+        message[i : i + 2] in message[i + 2 :] for i in range(len(message) - 2)
+    ):
+        return False
+
+    if not any(message[i] == message[i + 2] for i in range(len(message) - 2)):
+        return False
+
+    return True
+
+
 class TestCode(unittest.TestCase):
     def test_is_nice(self) -> None:
         self.assertTrue(is_nice(message="ugknbfddgicrmopn"))
