@@ -53,3 +53,6 @@ class TestPuzzle(unittest.TestCase):
 
     def test_part_one(self) -> None:
         self.assertEqual(sum(map(is_nice, self.messages)), 255)
+
+    def test_part_two(self) -> None:
+        self.assertEqual(sum(map(is_very_nice, self.messages)), 55)
