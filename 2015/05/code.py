@@ -25,3 +25,12 @@ class TestCode(unittest.TestCase):
         self.assertFalse(is_nice(message="jchzalrnumimnmhp"))
         self.assertFalse(is_nice(message="haegwjzuvuyypxyu"))
         self.assertFalse(is_nice(message="dvszwmarrgswjxmb"))
+
+
+class TestPuzzle(unittest.TestCase):
+    def setUp(self) -> None:
+        with open("input.txt") as f:
+            self.messages = f.read().splitlines()
+
+    def test_part_one(self) -> None:
+        self.assertEqual(sum(map(is_nice, self.messages)), 255)
