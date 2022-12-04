@@ -26,6 +26,12 @@ class TestCode(unittest.TestCase):
         self.assertFalse(is_nice(message="haegwjzuvuyypxyu"))
         self.assertFalse(is_nice(message="dvszwmarrgswjxmb"))
 
+    def test_is_very_nice(self) -> None:
+        self.assertTrue(is_very_nice(message="qjhvhtzxzqqjkmpb"))
+        self.assertTrue(is_very_nice(message="xxyxx"))
+        self.assertFalse(is_very_nice(message="uurcxstgmygtbstg"))
+        self.assertFalse(is_very_nice(message="ieodomkazucvgmuy"))
+
 
 class TestPuzzle(unittest.TestCase):
     def setUp(self) -> None:
