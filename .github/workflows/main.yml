@@ -30,7 +30,7 @@ jobs:
             cd $(dirname ${FILE})
 
             # Check code quality. Note that black correctly
-            # formats code according to E203, but flake8 gets is wrong.
+            # formats code according to E203, but flake8 gets it wrong.
             black --check -l 79 code.py
             mypy code.py
             flake8 --ignore E203 code.py
