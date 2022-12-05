@@ -1,6 +1,29 @@
 import unittest
 
 
+class Rectangle:
+    def __init__(self, width: int, height: int) -> None:
+        self.lights = [[0 for _ in range(width)] for _ in range(height)]
+
+    def turn_on(self, x1: int, y1: int, x2: int, y2: int) -> None:
+        for x in range(x1, x2 + 1):
+            for y in range(y1, y2 + 1):
+                self.lights[x][y] = 1
+
+    def turn_off(self, x1: int, y1: int, x2: int, y2: int) -> None:
+        for x in range(x1, x2 + 1):
+            for y in range(y1, y2 + 1):
+                self.lights[x][y] = 0
+
+    def toggle(self, x1: int, y1: int, x2: int, y2: int) -> None:
+        for x in range(x1, x2 + 1):
+            for y in range(y1, y2 + 1):
+                self.lights[x][y] = 1 - self.lights[x][y]
+
+    def count_lights_on(self) -> int:
+        return sum(sum(row) for row in self.lights)
+
+
 class TestCode(unittest.TestCase):
     def test_rectangle(self) -> None:
 
