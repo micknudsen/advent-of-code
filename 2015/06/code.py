@@ -23,7 +23,7 @@ class Grid:
             [0 for _ in range(self.size)] for _ in range(self.size)
         ]
 
-    def modify(self, action: str, x1: int, y1: int, x2: int, y2: int) -> None:
+    def switch(self, action: str, x1: int, y1: int, x2: int, y2: int) -> None:
         match action:
             case "turn on":
                 rule = self.turn_on_rule
@@ -56,13 +56,13 @@ class TestCode(unittest.TestCase):
         self.assertEqual(grid.total_intensity(), 0)
 
         # Turn on all lights
-        grid.modify(action="turn on", x1=0, y1=0, x2=999, y2=999)
+        grid.switch(action="turn on", x1=0, y1=0, x2=999, y2=999)
         self.assertEqual(grid.total_intensity(), 1_000_000)
 
         # Toggle first line of lights
-        grid.modify(action="toggle", x1=0, y1=0, x2=999, y2=0)
+        grid.switch(action="toggle", x1=0, y1=0, x2=999, y2=0)
         self.assertEqual(grid.total_intensity(), 999_000)
 
         # Turn off middle four lights
-        grid.modify(action="turn off", x1=499, y1=499, x2=500, y2=500)
+        grid.switch(action="turn off", x1=499, y1=499, x2=500, y2=500)
         self.assertEqual(grid.total_intensity(), 998_996)
