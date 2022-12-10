@@ -119,3 +119,14 @@ class TestPuzzle(unittest.TestCase):
         for (action, i1, j1, i2, j2) in self.instructions:
             grid.switch(action=action, i1=i1, j1=j1, i2=i2, j2=j2)
         self.assertEqual(grid.total_intensity(), 377891)
+
+    def test_part_two(self) -> None:
+        grid = Grid(
+            size=1000,
+            turn_on_rule=lambda x: x + 1,
+            turn_off_rule=lambda x: max(x - 1, 0),
+            toggle_rule=lambda x: x + 2,
+        )
+        for (action, i1, j1, i2, j2) in self.instructions:
+            grid.switch(action=action, i1=i1, j1=j1, i2=i2, j2=j2)
+        self.assertEqual(grid.total_intensity(), 14110788)
