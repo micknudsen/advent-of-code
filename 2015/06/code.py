@@ -1,7 +1,7 @@
 import unittest
 
 
-class Rectangle:
+class Grid:
     def __init__(self, width: int, height: int) -> None:
         self.lights = [[0 for _ in range(width)] for _ in range(height)]
 
@@ -25,21 +25,21 @@ class Rectangle:
 
 
 class TestCode(unittest.TestCase):
-    def test_rectangle(self) -> None:
+    def test_grid(self) -> None:
 
-        reactangle = Rectangle(height=1000, width=1000)
+        grid = Grid(height=1000, width=1000)
 
-        # The reactangle starts out with no lights on
-        self.assertEqual(reactangle.count_lights_on(), 0)
+        # The grid starts out with no lights on
+        self.assertEqual(grid.count_lights_on(), 0)
 
         # Turn on all lights
-        reactangle.turn_on(x1=0, y1=0, x2=999, y2=999)
-        self.assertEqual(reactangle.count_lights_on(), 1_000_000)
+        grid.turn_on(x1=0, y1=0, x2=999, y2=999)
+        self.assertEqual(grid.count_lights_on(), 1_000_000)
 
         # Toggle first line of lights
-        reactangle.toggle(x1=0, y1=0, x2=999, y2=0)
-        self.assertEqual(reactangle.count_lights_on(), 999_000)
+        grid.toggle(x1=0, y1=0, x2=999, y2=0)
+        self.assertEqual(grid.count_lights_on(), 999_000)
 
         # Turn off middle four lights
-        reactangle.turn_off(x1=499, y1=499, x2=500, y2=500)
-        self.assertEqual(reactangle.count_lights_on(), 998_996)
+        grid.turn_off(x1=499, y1=499, x2=500, y2=500)
+        self.assertEqual(grid.count_lights_on(), 998_996)
