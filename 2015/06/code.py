@@ -1,7 +1,8 @@
 import unittest
+import re
 
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, List, Tuple
 
 
 class InvalidActionError(Exception):
@@ -23,7 +24,7 @@ class Grid:
             [0 for _ in range(self.size)] for _ in range(self.size)
         ]
 
-    def switch(self, action: str, x1: int, y1: int, x2: int, y2: int) -> None:
+    def switch(self, action: str, i1: int, j1: int, i2: int, j2: int) -> None:
         match action:
             case "turn on":
                 rule = self.turn_on_rule
@@ -34,9 +35,9 @@ class Grid:
             case _:
                 raise InvalidActionError(action=action)
 
-        for x in range(x1, x2 + 1):
-            for y in range(y1, y2 + 1):
-                self.intensities[x][y] = rule(self.intensities[x][y])
+        for i in range(i1, i2 + 1):
+            for j in range(j1, j2 + 1):
+                self.intensities[i][j] = rule(self.intensities[i][j])
 
     def total_intensity(self) -> int:
         return sum(sum(row) for row in self.intensities)
@@ -44,7 +45,6 @@ class Grid:
 
 class TestCode(unittest.TestCase):
     def test_grid(self) -> None:
-
         grid = Grid(
             size=1000,
             turn_on_rule=lambda x: 1,
@@ -56,13 +56,47 @@ class TestCode(unittest.TestCase):
         self.assertEqual(grid.total_intensity(), 0)
 
         # Turn on all lights
-        grid.switch(action="turn on", x1=0, y1=0, x2=999, y2=999)
+        grid.switch(action="turn on", i1=0, j1=0, i2=999, j2=999)
         self.assertEqual(grid.total_intensity(), 1_000_000)
 
         # Toggle first line of lights
-        grid.switch(action="toggle", x1=0, y1=0, x2=999, y2=0)
+        grid.switch(action="toggle", i1=0, j1=0, i2=999, j2=0)
         self.assertEqual(grid.total_intensity(), 999_000)
 
         # Turn off middle four lights
-        grid.switch(action="turn off", x1=499, y1=499, x2=500, y2=500)
+        grid.switch(action="turn off", i1=499, j1=499, i2=500, j2=500)
         self.assertEqual(grid.total_intensity(), 998_996)
+
+
+class TestPuzzle(unittest.TestCase):
+    def setUp(self) -> None:
+        with open("input.txt") as f:
+            self.instructions: List[Tuple[str, int, int, int, int]] = []
+            for line in f.read().splitlines():
+                if instruction := re.match(
+                    "(?P<action>[a-z ]+)"
+                    "(?P<i1>[0-9]+),(?P<j1>[0-9]+)"
+                    " through "
+                    "(?P<i2>[0-9]+),(?P<j2>[0-9]+)",
+                    line,
+                ):
+                    self.instructions.append(
+                        (
+                            instruction.group("action").rstrip(),
+                            int(instruction.group("i1")),
+                            int(instruction.group("j1")),
+                            int(instruction.group("i2")),
+                            int(instruction.group("j2")),
+                        ),
+                    )
+
+    def test_part_one(self) -> None:
+        grid = Grid(
+            size=1000,
+            turn_on_rule=lambda x: 1,
+            turn_off_rule=lambda x: 0,
+            toggle_rule=lambda x: 1 - x,
+        )
+        for (action, i1, j1, i2, j2) in self.instructions:
+            grid.switch(action=action, i1=i1, j1=j1, i2=i2, j2=j2)
+        self.assertEqual(grid.total_intensity(), 377891)
