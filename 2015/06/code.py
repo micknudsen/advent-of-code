@@ -44,7 +44,7 @@ class Grid:
 
 
 class TestCode(unittest.TestCase):
-    def test_grid(self) -> None:
+    def test_first_grid(self) -> None:
         grid = Grid(
             size=1000,
             turn_on_rule=lambda x: 1,
@@ -66,6 +66,25 @@ class TestCode(unittest.TestCase):
         # Turn off middle four lights
         grid.switch(action="turn off", i1=499, j1=499, i2=500, j2=500)
         self.assertEqual(grid.total_intensity(), 998_996)
+
+    def test_second_grid(self) -> None:
+        grid = Grid(
+            size=1000,
+            turn_on_rule=lambda x: x + 1,
+            turn_off_rule=lambda x: max(x - 1, 0),
+            toggle_rule=lambda x: x + 2,
+        )
+
+        # The grid starts out with no lights on
+        self.assertEqual(grid.total_intensity(), 0)
+
+        # Turn on one light
+        grid.switch(action="turn on", i1=0, j1=0, i2=0, j2=0)
+        self.assertEqual(grid.total_intensity(), 1)
+
+        # Toggle all ligths
+        grid.switch(action="toggle", i1=0, j1=0, i2=999, j2=999)
+        self.assertEqual(grid.total_intensity(), 2_000_001)
 
 
 class TestPuzzle(unittest.TestCase):
