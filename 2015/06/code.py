@@ -67,6 +67,10 @@ class TestCode(unittest.TestCase):
         grid.switch(action="turn off", i1=499, j1=499, i2=500, j2=500)
         self.assertEqual(grid.total_intensity(), 998_996)
 
+        # Invalid action raises an exception
+        with self.assertRaises(InvalidActionError):
+            grid.switch(action="change color", i1=0, j1=0, i2=0, j2=0)
+
     def test_second_grid(self) -> None:
         grid = Grid(
             size=1000,
