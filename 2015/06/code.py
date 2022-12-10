@@ -2,8 +2,8 @@ import unittest
 
 
 class Grid:
-    def __init__(self, width: int, height: int) -> None:
-        self.lights = [[0 for _ in range(width)] for _ in range(height)]
+    def __init__(self, size: int) -> None:
+        self.lights = [[0 for _ in range(size)] for _ in range(size)]
 
     def turn_on(self, x1: int, y1: int, x2: int, y2: int) -> None:
         for x in range(x1, x2 + 1):
@@ -27,7 +27,7 @@ class Grid:
 class TestCode(unittest.TestCase):
     def test_grid(self) -> None:
 
-        grid = Grid(height=1000, width=1000)
+        grid = Grid(size=1000)
 
         # The grid starts out with no lights on
         self.assertEqual(grid.count_lights_on(), 0)
