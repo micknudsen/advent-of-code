@@ -32,7 +32,6 @@ class Circuit:
         ):
             left = self.compute(parts.group("left"))
             right = self.compute(parts.group("right"))
-            print(left, right)
             match parts.group("gate"):
                 case "AND":
                     return left & right
