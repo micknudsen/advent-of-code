@@ -20,21 +20,26 @@ class Circuit:
     @functools.cache
     def compute(self, wire: str) -> int:
 
+        # Wire already has a number
         if wire.isdigit():
             return int(wire)
 
+        # Signal to wire is a number
         if self.connections[wire].isdigit():
             return int(self.connections[wire])
 
+        # Signal to wire is another wire
         if self.connections[wire] in self.connections:
             return self.compute(self.connections[wire])
 
+        # Signal to wire is a NOT gate
         if parts := re.match(
             r"NOT (?P<value>[a-z]+|[0-9]+)", self.connections[wire]
         ):
             value = self.compute(parts.group("value"))
             return ~value + 2**16
 
+        # Signal to wire is a binary gate
         if parts := re.match(
             r"(?P<left>[a-z]+|[0-9]+) "
             r"(?P<gate>AND|OR|LSHIFT|RSHIFT) "
