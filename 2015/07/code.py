@@ -81,5 +81,5 @@ class TestPuzzle(unittest.TestCase):
         with open("input.txt") as f:
             self.circuit = Circuit(instructions=f.read().splitlines())
 
-    def test_compute(self) -> None:
+    def test_part_one(self) -> None:
         self.assertEqual(self.circuit.compute(wire="a"), 16076)
