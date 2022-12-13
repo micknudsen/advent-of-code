@@ -72,3 +72,12 @@ class TestCode(unittest.TestCase):
         self.assertEqual(self.circuit.compute(wire="i"), 65079)
         self.assertEqual(self.circuit.compute(wire="x"), 123)
         self.assertEqual(self.circuit.compute(wire="y"), 456)
+
+
+class TestPuzzle(unittest.TestCase):
+    def setUp(self) -> None:
+        with open("input.txt") as f:
+            self.circuit = Circuit(instructions=f.read().splitlines())
+
+    def test_compute(self) -> None:
+        self.assertEqual(self.circuit.compute(wire="a"), 46065)
