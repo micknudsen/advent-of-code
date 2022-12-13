@@ -83,3 +83,7 @@ class TestPuzzle(unittest.TestCase):
 
     def test_part_one(self) -> None:
         self.assertEqual(self.circuit.compute(wire="a"), 16076)
+
+    def test_part_two(self) -> None:
+        self.circuit.connections["b"] = "16076"
+        self.assertEqual(self.circuit.compute(wire="a"), 2797)
