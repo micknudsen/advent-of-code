@@ -5,6 +5,12 @@ import re
 from typing import Iterable
 
 
+class ComputeError(Exception):
+    def __init__(self, wire: str) -> None:
+        self.message = f"Unable to compute wire: {wire}"
+        super().__init__(self.message)
+
+
 class Circuit:
     def __init__(self, instructions: Iterable[str]) -> None:
         self.connections: dict[str, str] = dict(
@@ -47,7 +53,7 @@ class Circuit:
                 case "RSHIFT":
                     return left >> right
 
-        raise Exception(wire)
+        raise ComputeError(wire)
 
 
 class TestCode(unittest.TestCase):
@@ -74,6 +80,11 @@ class TestCode(unittest.TestCase):
         self.assertEqual(self.circuit.compute(wire="i"), 65079)
         self.assertEqual(self.circuit.compute(wire="x"), 123)
         self.assertEqual(self.circuit.compute(wire="y"), 456)
+
+    def test_compute_error(self) -> None:
+        self.circuit.connections["z"] = "7 XOR 9"
+        with self.assertRaises(ComputeError):
+            self.circuit.compute(wire="z")
 
 
 class TestPuzzle(unittest.TestCase):
