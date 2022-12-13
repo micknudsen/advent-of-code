@@ -1,3 +1,4 @@
+import functools
 import unittest
 import re
 
@@ -10,6 +11,7 @@ class Circuit:
             map(lambda x: x.split(" -> ")[::-1], instructions)
         )
 
+    @functools.cache
     def compute(self, wire: str) -> int:
 
         if wire.isdigit():
@@ -80,4 +82,4 @@ class TestPuzzle(unittest.TestCase):
             self.circuit = Circuit(instructions=f.read().splitlines())
 
     def test_compute(self) -> None:
-        self.assertEqual(self.circuit.compute(wire="a"), 46065)
+        self.assertEqual(self.circuit.compute(wire="a"), 16076)
