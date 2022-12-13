@@ -18,6 +18,9 @@ class Circuit:
         if self.connections[wire].isdigit():
             return int(self.connections[wire])
 
+        if self.connections[wire] in self.connections:
+            return self.compute(self.connections[wire])
+
         if parts := re.match(
             r"NOT (?P<value>[a-z]+|[0-9]+)", self.connections[wire]
         ):
