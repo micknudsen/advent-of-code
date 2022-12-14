@@ -1,4 +1,17 @@
+import codecs
 import unittest
+
+
+def representation_size(string: str) -> int:
+    """Return the size of the string representation. This exludes
+    quotes and respects escape characters."""
+    return len(codecs.decode(string[1:-1], "unicode-escape"))
+
+
+def memory_size(string: str) -> int:
+    """Return the size of the string in memory. This includes
+    both quotes and excape characters."""
+    return len(string)
 
 
 class TestCode(unittest.TestCase):
