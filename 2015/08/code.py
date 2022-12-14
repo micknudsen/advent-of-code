@@ -26,3 +26,18 @@ class TestCode(unittest.TestCase):
         self.assertEqual(memory_size(r'"abc"'), 5)
         self.assertEqual(memory_size(r'"aaa\"aaa"'), 10)
         self.assertEqual(memory_size(r'"\x27"'), 6)
+
+
+class TestPuzzles(unittest.TestCase):
+    def setUp(self) -> None:
+        with open("input.txt") as f:
+            self.strings = f.read().splitlines()
+
+    def test_part_one(self) -> None:
+        self.assertEqual(
+            sum(
+                memory_size(string) - representation_size(string)
+                for string in self.strings
+            ),
+            1333,
+        )
