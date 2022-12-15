@@ -15,6 +15,12 @@ class TestCode(unittest.TestCase):
         self.assertEqual(literal(r'"aaa\"aaa"'), r'aaa"aaa')
         self.assertEqual(literal(r'"\x27"'), r"'")
 
+    def test_encode(self) -> None:
+        self.assertEqual(encode(r'""'), r'"\"\""')
+        self.assertEqual(encode(r'"abc"'), r'"\"abc\""')
+        self.assertEqual(encode(r'"aaa\"aaa"'), r'"\"aaa\\\"aaa\""')
+        self.assertEqual(encode(r'"\x27"'), r'"\"\\x27\""')
+
 
 class TestPuzzles(unittest.TestCase):
     def setUp(self) -> None:
