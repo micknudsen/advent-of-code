@@ -13,16 +13,13 @@ class InvalidActionError(Exception):
 
 @dataclass
 class Grid:
-
     size: int
     turn_on_rule: Callable[[int], int]
     turn_off_rule: Callable[[int], int]
     toggle_rule: Callable[[int], int]
 
     def __post_init__(self) -> None:
-        self.intensities = [
-            [0 for _ in range(self.size)] for _ in range(self.size)
-        ]
+        self.intensities = [[0 for _ in range(self.size)] for _ in range(self.size)]
 
     def switch(self, action: str, i1: int, j1: int, i2: int, j2: int) -> None:
         match action:
@@ -120,7 +117,7 @@ class TestPuzzle(unittest.TestCase):
             turn_off_rule=lambda x: 0,
             toggle_rule=lambda x: 1 - x,
         )
-        for (action, i1, j1, i2, j2) in self.instructions:
+        for action, i1, j1, i2, j2 in self.instructions:
             grid.switch(action=action, i1=i1, j1=j1, i2=i2, j2=j2)
         self.assertEqual(grid.total_intensity(), 377891)
 
@@ -131,6 +128,6 @@ class TestPuzzle(unittest.TestCase):
             turn_off_rule=lambda x: max(x - 1, 0),
             toggle_rule=lambda x: x + 2,
         )
-        for (action, i1, j1, i2, j2) in self.instructions:
+        for action, i1, j1, i2, j2 in self.instructions:
             grid.switch(action=action, i1=i1, j1=j1, i2=i2, j2=j2)
         self.assertEqual(grid.total_intensity(), 14110788)
