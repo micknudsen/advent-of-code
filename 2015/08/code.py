@@ -25,6 +25,24 @@ class TestCode(unittest.TestCase):
             5,
         )
 
+    def test_increase(self) -> None:
+        self.assertEqual(
+            increase(string=r'""'),
+            4,
+        )
+        self.assertEqual(
+            increase(string=r'"abc"'),
+            4,
+        )
+        self.assertEqual(
+            increase(string=r'"aaa\"aaa"'),
+            6,
+        )
+        self.assertEqual(
+            increase(string=r'"\x27"'),
+            5,
+        )
+
 
 class TestPuzzles(unittest.TestCase):
     def setUp(self) -> None:
