@@ -2,8 +2,16 @@ import ast
 import unittest
 
 
-def overhead(string: str) -> int:
+def overhead(
+    string: str,
+) -> int:
     return len(string) - len(ast.literal_eval(string))
+
+
+def increase(
+    string: str,
+) -> int:
+    return 2 + string.count('"') + string.count("\\")
 
 
 class TestCode(unittest.TestCase):
