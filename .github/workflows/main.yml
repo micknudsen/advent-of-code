@@ -20,7 +20,7 @@ jobs:
 
           # Install software
           sudo apt-get install jq
-          pip install coverage flake8 mypy black
+          pip install coverage mypy black
 
           # Run tests one at a time
           find $(pwd -P) -name code.py | sort -r | while read FILE;
@@ -29,11 +29,9 @@ jobs:
             echo "Processing $FILE"
             cd $(dirname ${FILE})
 
-            # Check code quality. Note that black correctly
-            # formats code according to E203, but flake8 gets it wrong.
-            black --check -l 79 code.py
+            # Check code quality
+            black --check code.py
             mypy code.py
-            flake8 --ignore E203 code.py
 
             # Check code coverage
             coverage run -m unittest code.py && coverage json

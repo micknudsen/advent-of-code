@@ -2,7 +2,6 @@ import unittest
 
 
 def is_nice(message: str) -> bool:
-
     # Message must contain at least three vowels.
     if sum(1 for char in message if char in "aeiou") < 3:
         return False
@@ -13,7 +12,13 @@ def is_nice(message: str) -> bool:
 
     # Message must not contain the strings "ab", "cd", "pq", or "xy".
     if any(
-        message[i : i + 2] in ["ab", "cd", "pq", "xy"]
+        message[i : i + 2]
+        in [
+            "ab",
+            "cd",
+            "pq",
+            "xy",
+        ]
         for i in range(len(message) - 1)
     ):
         return False
@@ -21,13 +26,12 @@ def is_nice(message: str) -> bool:
     return True
 
 
-def is_very_nice(message: str) -> bool:
-
+def is_very_nice(
+    message: str,
+) -> bool:
     # Message must contain a pair of any two letters that appears at least
     # twice in the string without overlapping.
-    if not any(
-        message[i : i + 2] in message[i + 2 :] for i in range(len(message) - 2)
-    ):
+    if not any(message[i : i + 2] in message[i + 2 :] for i in range(len(message) - 2)):
         return False
 
     # Message must contain at least one letter which repeats with exactly
@@ -40,17 +44,53 @@ def is_very_nice(message: str) -> bool:
 
 class TestCode(unittest.TestCase):
     def test_is_nice(self) -> None:
-        self.assertTrue(is_nice(message="ugknbfddgicrmopn"))
-        self.assertTrue(is_nice(message="aaa"))
-        self.assertFalse(is_nice(message="jchzalrnumimnmhp"))
-        self.assertFalse(is_nice(message="haegwjzuvuyypxyu"))
-        self.assertFalse(is_nice(message="dvszwmarrgswjxmb"))
+        self.assertTrue(
+            is_nice(
+                message="ugknbfddgicrmopn",
+            )
+        )
+        self.assertTrue(
+            is_nice(
+                message="aaa",
+            )
+        )
+        self.assertFalse(
+            is_nice(
+                message="jchzalrnumimnmhp",
+            )
+        )
+        self.assertFalse(
+            is_nice(
+                message="haegwjzuvuyypxyu",
+            )
+        )
+        self.assertFalse(
+            is_nice(
+                message="dvszwmarrgswjxmb",
+            )
+        )
 
     def test_is_very_nice(self) -> None:
-        self.assertTrue(is_very_nice(message="qjhvhtzxzqqjkmpb"))
-        self.assertTrue(is_very_nice(message="xxyxx"))
-        self.assertFalse(is_very_nice(message="uurcxstgmygtbstg"))
-        self.assertFalse(is_very_nice(message="ieodomkazucvgmuy"))
+        self.assertTrue(
+            is_very_nice(
+                message="qjhvhtzxzqqjkmpb",
+            )
+        )
+        self.assertTrue(
+            is_very_nice(
+                message="xxyxx",
+            )
+        )
+        self.assertFalse(
+            is_very_nice(
+                message="uurcxstgmygtbstg",
+            )
+        )
+        self.assertFalse(
+            is_very_nice(
+                message="ieodomkazucvgmuy",
+            )
+        )
 
 
 class TestPuzzle(unittest.TestCase):
@@ -59,7 +99,23 @@ class TestPuzzle(unittest.TestCase):
             self.messages = f.read().splitlines()
 
     def test_part_one(self) -> None:
-        self.assertEqual(sum(map(is_nice, self.messages)), 255)
+        self.assertEqual(
+            sum(
+                map(
+                    is_nice,
+                    self.messages,
+                )
+            ),
+            255,
+        )
 
     def test_part_two(self) -> None:
-        self.assertEqual(sum(map(is_very_nice, self.messages)), 55)
+        self.assertEqual(
+            sum(
+                map(
+                    is_very_nice,
+                    self.messages,
+                )
+            ),
+            55,
+        )
