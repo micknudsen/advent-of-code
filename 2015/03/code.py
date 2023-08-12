@@ -77,9 +77,7 @@ class TestPuzzle(unittest.TestCase):
         work by taking turns to follow directions."""
 
         visited_by_santa = houses_visited(directions=self.directions[::2])
-        visited_by_robo_santa = houses_visited(
-            directions=self.directions[1::2]
-        )
+        visited_by_robo_santa = houses_visited(directions=self.directions[1::2])
 
         self.assertEqual(
             len(visited_by_santa | visited_by_robo_santa),
