@@ -62,3 +62,9 @@ class TestPuzzles(unittest.TestCase):
             sum(map(overhead, self.strings)),
             1333,
         )
+
+    def test_part_two(self) -> None:
+        self.assertEqual(
+            sum(map(increase, self.strings)),
+            2046,
+        )
