@@ -1,25 +1,29 @@
-import codecs
+import ast
 import unittest
 
 
-def literal(string: str) -> str:
-    """Return the string literal including
-    quotes and escape characters."""
-    return codecs.decode(string[1:-1], "unicode-escape")
+def overhead(string: str) -> int:
+    return len(string) - len(ast.literal_eval(string))
 
 
 class TestCode(unittest.TestCase):
-    def test_literal(self) -> None:
-        self.assertEqual(literal(r'""'), r"")
-        self.assertEqual(literal(r'"abc"'), r"abc")
-        self.assertEqual(literal(r'"aaa\"aaa"'), r'aaa"aaa')
-        self.assertEqual(literal(r'"\x27"'), r"'")
-
-    def test_encode(self) -> None:
-        self.assertEqual(encode(r'""'), r'"\"\""')
-        self.assertEqual(encode(r'"abc"'), r'"\"abc\""')
-        self.assertEqual(encode(r'"aaa\"aaa"'), r'"\"aaa\\\"aaa\""')
-        self.assertEqual(encode(r'"\x27"'), r'"\"\\x27\""')
+    def test_overhead(self) -> None:
+        self.assertEqual(
+            overhead(string=r'""'),
+            2,
+        )
+        self.assertEqual(
+            overhead(string=r'"abc"'),
+            2,
+        )
+        self.assertEqual(
+            overhead(string=r'"aaa\"aaa"'),
+            3,
+        )
+        self.assertEqual(
+            overhead(string=r'"\x27"'),
+            5,
+        )
 
 
 class TestPuzzles(unittest.TestCase):
@@ -29,6 +33,6 @@ class TestPuzzles(unittest.TestCase):
 
     def test_part_one(self) -> None:
         self.assertEqual(
-            sum(len(string) - len(literal(string)) for string in self.strings),
+            sum(map(overhead, self.strings)),
             1333,
         )
