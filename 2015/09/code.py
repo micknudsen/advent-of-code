@@ -108,3 +108,9 @@ class TestPuzzles(unittest.TestCase):
             self.map.shortest_route(),
             117,
         )
+
+    def test_part_two(self) -> None:
+        self.assertEqual(
+            self.map.longest_route(),
+            909,
+        )
