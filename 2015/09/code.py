@@ -37,6 +37,15 @@ class Map:
             for route in permutations(self.distances.keys())
         )
 
+    def longest_route(self) -> int:
+        return max(
+            sum(
+                self.distance(source, destination)
+                for source, destination in zip(route, route[1:])
+            )
+            for route in permutations(self.distances.keys())
+        )
+
 
 class TestCode(unittest.TestCase):
     def setUp(self) -> None:
