@@ -2,7 +2,7 @@ import unittest
 
 from collections import defaultdict
 from itertools import permutations
-from typing import Dict
+from typing import Dict, Iterable
 
 
 class Map:
@@ -12,7 +12,7 @@ class Map:
     @classmethod
     def init_from_strings(
         cls,
-        strings: str,
+        strings: Iterable[str],
     ) -> "Map":
         distances: Dict[str, Dict[str, int]] = defaultdict(dict)
         for string in strings:
