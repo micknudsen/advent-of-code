@@ -28,8 +28,8 @@ class Map:
     ) -> int:
         return self.distances[source][destination]
 
-    def shortest_route(self) -> int:
-        return min(
+    def route_lengths(self) -> Iterable[int]:
+        return (
             sum(
                 self.distance(source, destination)
                 for source, destination in zip(route, route[1:])
@@ -37,14 +37,11 @@ class Map:
             for route in permutations(self.distances.keys())
         )
 
+    def shortest_route(self) -> int:
+        return min(self.route_lengths())
+
     def longest_route(self) -> int:
-        return max(
-            sum(
-                self.distance(source, destination)
-                for source, destination in zip(route, route[1:])
-            )
-            for route in permutations(self.distances.keys())
-        )
+        return max(self.route_lengths())
 
 
 class TestCode(unittest.TestCase):
