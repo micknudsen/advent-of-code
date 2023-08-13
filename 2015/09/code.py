@@ -1,9 +1,11 @@
 import unittest
 
+from typing import Dict
+
 
 class TestCode(unittest.TestCase):
     def setUp(self) -> None:
-        self.locations: dict[str, Location] = locations_from_strings(
+        self.locations: Dict[str, Location] = locations_from_strings(
             [
                 "London to Dublin = 464",
                 "London to Belfast = 518",
