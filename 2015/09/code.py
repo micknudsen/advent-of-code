@@ -1,6 +1,7 @@
 import unittest
 
 from collections import defaultdict
+from itertools import permutations
 from typing import Dict
 
 
@@ -26,6 +27,15 @@ class Map:
         destination: str,
     ) -> int:
         return self.distances[source][destination]
+
+    def shortest_route(self) -> int:
+        return min(
+            sum(
+                self.distance(source, destination)
+                for source, destination in zip(route, route[1:])
+            )
+            for route in permutations(self.distances.keys())
+        )
 
 
 class TestCode(unittest.TestCase):
@@ -66,6 +76,6 @@ class TestCode(unittest.TestCase):
 
     def test_shortest_route(self) -> None:
         self.assertEqual(
-            map.shortest_route(),
+            self.map.shortest_route(),
             605,
         )
