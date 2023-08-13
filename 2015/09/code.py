@@ -80,6 +80,12 @@ class TestCode(unittest.TestCase):
             605,
         )
 
+    def test_longest_route(self) -> None:
+        self.assertEqual(
+            self.map.longest_route(),
+            982,
+        )
+
 
 class TestPuzzles(unittest.TestCase):
     def setUp(self) -> None:
