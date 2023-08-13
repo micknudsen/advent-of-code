@@ -1,6 +1,21 @@
 import unittest
 
+from collections import defaultdict
 from typing import Dict
+
+
+class Map:
+    def __init__(self, distances: Dict[str, Dict[str, int]]) -> None:
+        self.distances = distances
+
+    @classmethod
+    def init_from_strings(cls, strings: str) -> "Map":
+        distances: Dict[str, Dict[str, int]] = defaultdict(dict)
+        for string in strings:
+            source, _, destination, _, distance = string.split()
+            distances[source][destination] = int(distance)
+            distances[destination][source] = int(distance)
+        return cls(distances)
 
 
 class TestCode(unittest.TestCase):
