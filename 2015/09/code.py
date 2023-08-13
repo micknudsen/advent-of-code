@@ -6,7 +6,10 @@ from typing import Dict, Iterable
 
 
 class Map:
-    def __init__(self, distances: Dict[str, Dict[str, int]]) -> None:
+    def __init__(
+        self,
+        distances: Dict[str, Dict[str, int]],
+    ) -> None:
         self.distances = distances
 
     @classmethod
@@ -19,7 +22,9 @@ class Map:
             source, _, destination, _, distance = string.split()
             distances[source][destination] = int(distance)
             distances[destination][source] = int(distance)
-        return cls(distances)
+        return cls(
+            distances=distances,
+        )
 
     def distance(
         self,
