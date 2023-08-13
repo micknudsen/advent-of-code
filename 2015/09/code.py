@@ -9,13 +9,23 @@ class Map:
         self.distances = distances
 
     @classmethod
-    def init_from_strings(cls, strings: str) -> "Map":
+    def init_from_strings(
+        cls,
+        strings: str,
+    ) -> "Map":
         distances: Dict[str, Dict[str, int]] = defaultdict(dict)
         for string in strings:
             source, _, destination, _, distance = string.split()
             distances[source][destination] = int(distance)
             distances[destination][source] = int(distance)
         return cls(distances)
+
+    def distance(
+        self,
+        source: str,
+        destination: str,
+    ) -> int:
+        return self.distances[source][destination]
 
 
 class TestCode(unittest.TestCase):
