@@ -79,3 +79,17 @@ class TestCode(unittest.TestCase):
             self.map.shortest_route(),
             605,
         )
+
+
+class TestPuzzles(unittest.TestCase):
+    def setUp(self) -> None:
+        with open("input.txt") as f:
+            self.map = Map.init_from_strings(
+                strings=f.read().splitlines(),
+            )
+
+    def test_part_one(self) -> None:
+        self.assertEqual(
+            self.map.shortest_route(),
+            117,
+        )
