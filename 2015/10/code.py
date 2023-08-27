@@ -41,3 +41,18 @@ class TestCode(unittest.TestCase):
             say(number="111221"),
             "312211",
         )
+
+
+class TestPuzzles(unittest.TestCase):
+    def setUp(self) -> None:
+        with open("input.txt") as f:
+            self.number = f.read().splitlines()[0]
+
+    def test_part_one(self) -> None:
+        solution = self.number
+        for _ in range(40):
+            solution = say(solution)
+        self.assertEqual(
+            len(solution),
+            492982,
+        )
