@@ -56,3 +56,12 @@ class TestPuzzles(unittest.TestCase):
             len(solution),
             492982,
         )
+
+    def test_part_two(self) -> None:
+        solution = self.number
+        for _ in range(50):
+            solution = say(solution)
+        self.assertEqual(
+            len(solution),
+            6989950,
+        )
