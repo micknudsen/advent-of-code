@@ -1,11 +1,43 @@
 import unittest
 
 
-class TestCode(unittest.TestCase):
+def say(number: str) -> str:
+    result = ""
 
+    digit = number[0]
+    count = 1
+
+    for next_digit in number[1:]:
+        if next_digit == digit:
+            count += 1
+        else:
+            result += f"{count}{digit}"
+            digit = next_digit
+            count = 1
+
+    result = result + f"{count}{digit}"
+    return result
+
+
+class TestCode(unittest.TestCase):
     def test_say(self) -> None:
-        self.assertEqual(say(number="1"), "11",)
-        self.assertEqual(say(number="11"), "21",)
-        self.assertEqual(say(number="21"), "1211",)
-        self.assertEqual(say(number="1211"), "111221",)
-        self.assertEqual(say(number="111221"), "312211",)
+        self.assertEqual(
+            say(number="1"),
+            "11",
+        )
+        self.assertEqual(
+            say(number="11"),
+            "21",
+        )
+        self.assertEqual(
+            say(number="21"),
+            "1211",
+        )
+        self.assertEqual(
+            say(number="1211"),
+            "111221",
+        )
+        self.assertEqual(
+            say(number="111221"),
+            "312211",
+        )
