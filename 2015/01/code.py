@@ -26,7 +26,7 @@ def deliver_presents(
     stop: Optional[int] = None,
 ) -> int:
     """Santa delivers presents starting at floor 0 based on instructions
-    given as a sequence of characters. Here "(" resp. ")") means go one floor
+    given as a sequence of characters. Here "(" (resp. ")") means go one floor
     up (resp. down). Any other instruction raises an exception.
 
     If stop is specified, Santa stops when reaching that floor, and the total
