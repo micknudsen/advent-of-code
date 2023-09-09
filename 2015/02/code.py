@@ -8,7 +8,7 @@ def paper_needed(
 ) -> int:
     """To wrap a box, the elves need to cover the surface area, and
     for some reason they also need a little extra paper with an area
-    equals to the area of the smallest side of the box."""
+    equal to the area of the smallest side of the box."""
 
     areas = [
         lenght * width,
