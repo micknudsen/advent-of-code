@@ -1,22 +1,10 @@
 import unittest
 
+from itertools import groupby
+
 
 def say(number: str) -> str:
-    result = ""
-
-    digit = number[0]
-    count = 1
-
-    for next_digit in number[1:]:
-        if next_digit == digit:
-            count += 1
-        else:
-            result += f"{count}{digit}"
-            digit = next_digit
-            count = 1
-
-    result = result + f"{count}{digit}"
-    return result
+    return "".join(f"{len(list(group))}{digit}" for digit, group in groupby(number))
 
 
 class TestCode(unittest.TestCase):
