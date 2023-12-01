@@ -34,7 +34,9 @@ def ribbon_needed(
         2 * (height + length),
     ]
 
-    return min(perimeters) + length * width * height
+    volume = length * width * height
+
+    return min(perimeters) + volume
 
 
 class TestCode(unittest.TestCase):
