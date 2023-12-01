@@ -2,7 +2,7 @@ import unittest
 
 
 def paper_needed(
-    lenght: int,
+    length: int,
     width: int,
     height: int,
 ) -> int:
@@ -11,36 +11,37 @@ def paper_needed(
     equal to the area of the smallest side of the box."""
 
     areas = [
-        lenght * width,
+        length * width,
         width * height,
-        height * lenght,
+        height * length,
     ]
     return 2 * sum(areas) + min(areas)
 
 
 def ribbon_needed(
-    lenght: int,
+    length: int,
     width: int,
     height: int,
 ) -> int:
     """To wrap a box, the elves need a bow made out of ribbon. The
-    required lenght is the smallest perimeter of any one face. An
+    required length is the smallest perimeter of any one face. An
     additional amount of ribbon of length equal to the volume of
     the box is needed. The elves work in mysterious ways."""
 
     perimeters = [
-        2 * (lenght + width),
+        2 * (length + width),
         2 * (width + height),
-        2 * (height + lenght),
+        2 * (height + length),
     ]
-    return min(perimeters) + lenght * width * height
+
+    return min(perimeters) + length * width * height
 
 
 class TestCode(unittest.TestCase):
     def test_paper_needed(self) -> None:
         self.assertEqual(
             paper_needed(
-                lenght=2,
+                length=2,
                 width=3,
                 height=4,
             ),
@@ -48,7 +49,7 @@ class TestCode(unittest.TestCase):
         )
         self.assertEqual(
             paper_needed(
-                lenght=1,
+                length=1,
                 width=1,
                 height=10,
             ),
@@ -58,7 +59,7 @@ class TestCode(unittest.TestCase):
     def test_ribbon_needed(self) -> None:
         self.assertEqual(
             ribbon_needed(
-                lenght=2,
+                length=2,
                 width=3,
                 height=4,
             ),
@@ -66,7 +67,7 @@ class TestCode(unittest.TestCase):
         )
         self.assertEqual(
             ribbon_needed(
-                lenght=1,
+                length=1,
                 width=1,
                 height=10,
             ),
@@ -84,15 +85,15 @@ class TestPuzzle(unittest.TestCase):
 
         with open("input.txt") as f:
             for dimension in f.read().splitlines():
-                lenght, width, height = map(
+                length, width, height = map(
                     int,
                     dimension.split("x"),
                 )
                 self.total_paper += paper_needed(
-                    lenght=lenght, width=width, height=height
+                    length=length, width=width, height=height
                 )
                 self.total_ribbon += ribbon_needed(
-                    lenght=lenght, width=width, height=height
+                    length=length, width=width, height=height
                 )
 
     def test_part_one(self) -> None:
