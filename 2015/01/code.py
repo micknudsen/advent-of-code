@@ -62,89 +62,27 @@ def deliver_presents(
 
 class TestCode(unittest.TestCase):
     def test_deliver_presents(self) -> None:
-        self.assertEqual(
-            deliver_presents(
-                instructions="(())",
-            ),
-            0,
-        )
-        self.assertEqual(
-            deliver_presents(
-                instructions="()()",
-            ),
-            0,
-        )
-        self.assertEqual(
-            deliver_presents(
-                instructions="(((",
-            ),
-            3,
-        )
-        self.assertEqual(
-            deliver_presents(
-                instructions="(()(()(",
-            ),
-            3,
-        )
-        self.assertEqual(
-            deliver_presents(
-                instructions="))(((((",
-            ),
-            3,
-        )
-        self.assertEqual(
-            deliver_presents(
-                instructions="())",
-            ),
-            -1,
-        )
-        self.assertEqual(
-            deliver_presents(
-                instructions="))(",
-            ),
-            -1,
-        )
-        self.assertEqual(
-            deliver_presents(
-                instructions=")))",
-            ),
-            -3,
-        )
-        self.assertEqual(
-            deliver_presents(
-                instructions=")())())",
-            ),
-            -3,
-        )
+        self.assertEqual(deliver_presents(instructions="(())"), 0)
+        self.assertEqual(deliver_presents(instructions="()()"), 0)
+        self.assertEqual(deliver_presents(instructions="((("), 3)
+        self.assertEqual(deliver_presents(instructions="(()(()("), 3)
+        self.assertEqual(deliver_presents(instructions="))((((("), 3)
+        self.assertEqual(deliver_presents(instructions="())"), -1)
+        self.assertEqual(deliver_presents(instructions="))("), -1)
+        self.assertEqual(deliver_presents(instructions=")))"), -3)
+        self.assertEqual(deliver_presents(instructions=")())())"), -3)
 
     def test_deliver_presents_with_stop(self) -> None:
-        self.assertEqual(
-            deliver_presents(
-                instructions=")",
-                stop=-1,
-            ),
-            1,
-        )
-        self.assertEqual(
-            deliver_presents(
-                instructions="()())",
-                stop=-1,
-            ),
-            5,
-        )
+        self.assertEqual(deliver_presents(instructions=")", stop=-1), 1)
+        self.assertEqual(deliver_presents(instructions="()())", stop=-1), 5)
 
     def test_deliver_presents_invalid_instruction(self) -> None:
         with self.assertRaises(InvalidInstructionError):
-            deliver_presents(
-                instructions=")[(",
-            )
+            deliver_presents(instructions=")[(")
 
     def test_deliver_presents_with_stop_floor_never_reached(self) -> None:
         with self.assertRaises(FloorNeverReachedError):
-            deliver_presents(
-                instructions="(",
-                stop=-1,
-            )
+            deliver_presents(instructions="(", stop=-1)
 
 
 class TestPuzzle(unittest.TestCase):
@@ -153,16 +91,9 @@ class TestPuzzle(unittest.TestCase):
             self.instructions = f.read()
 
     def test_part_one(self) -> None:
-        self.assertEqual(
-            deliver_presents(instructions=self.instructions),
-            232,
-        )
+        self.assertEqual(deliver_presents(instructions=self.instructions), 232)
 
     def test_part_two(self) -> None:
         self.assertEqual(
-            deliver_presents(
-                instructions=self.instructions,
-                stop=-1,
-            ),
-            1783,
+            deliver_presents(instructions=self.instructions, stop=-1), 1783
         )
