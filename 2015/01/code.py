@@ -17,7 +17,7 @@ class FloorNeverReachedError(Exception):
         self,
         floor: int,
     ) -> None:
-        self.message = f"Never reached floor {floor}"
+        self.message = f"Never reached floor: {floor}"
         super().__init__(self.message)
 
 
