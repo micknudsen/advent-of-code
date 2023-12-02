@@ -4,6 +4,8 @@ from typing import Iterable, Optional
 
 
 class InvalidInstructionError(Exception):
+    """Raised when Santa receives an invalid instruction."""
+
     def __init__(
         self,
         instruction: str,
@@ -13,6 +15,8 @@ class InvalidInstructionError(Exception):
 
 
 class FloorNeverReachedError(Exception):
+    """Raised when Santa never reaches the specified floor."""
+
     def __init__(
         self,
         floor: int,
