@@ -6,6 +6,8 @@ from typing import Callable, List, Tuple
 
 
 class InvalidActionError(Exception):
+    """Raised when the grid is asked to perform an invalid action."""
+
     def __init__(
         self,
         action: str,
@@ -16,12 +18,17 @@ class InvalidActionError(Exception):
 
 @dataclass
 class Grid:
+    """Class representing a grid of lights. Each light has an intensity and can be turned
+    on, turned off, or toggled according to rules specified by the owner of the grid.
+    """
+
     size: int
     turn_on_rule: Callable[[int], int]
     turn_off_rule: Callable[[int], int]
     toggle_rule: Callable[[int], int]
 
     def __post_init__(self) -> None:
+        """Initialize the grid with all lights turned off."""
         self.intensities = [[0 for _ in range(self.size)] for _ in range(self.size)]
 
     def switch(
@@ -32,6 +39,7 @@ class Grid:
         i2: int,
         j2: int,
     ) -> None:
+        """Turn on, turn off, or toggle all lights in the given range."""
         match action:
             case "turn on":
                 rule = self.turn_on_rule
@@ -64,10 +72,7 @@ class TestCode(unittest.TestCase):
         )
 
         # The grid starts out with no lights on
-        self.assertEqual(
-            grid.total_intensity(),
-            0,
-        )
+        self.assertEqual(grid.total_intensity(), 0)
 
         # Turn on all lights
         grid.switch(
@@ -77,10 +82,7 @@ class TestCode(unittest.TestCase):
             i2=999,
             j2=999,
         )
-        self.assertEqual(
-            grid.total_intensity(),
-            1_000_000,
-        )
+        self.assertEqual(grid.total_intensity(), 1_000_000)
 
         # Toggle first line of lights
         grid.switch(
@@ -90,10 +92,7 @@ class TestCode(unittest.TestCase):
             i2=999,
             j2=0,
         )
-        self.assertEqual(
-            grid.total_intensity(),
-            999_000,
-        )
+        self.assertEqual(grid.total_intensity(), 999_000)
 
         # Turn off middle four lights
         grid.switch(
@@ -103,10 +102,7 @@ class TestCode(unittest.TestCase):
             i2=500,
             j2=500,
         )
-        self.assertEqual(
-            grid.total_intensity(),
-            998_996,
-        )
+        self.assertEqual(grid.total_intensity(), 998_996)
 
         # Invalid action raises an exception
         with self.assertRaises(InvalidActionError):
@@ -127,10 +123,7 @@ class TestCode(unittest.TestCase):
         )
 
         # The grid starts out with no lights on
-        self.assertEqual(
-            grid.total_intensity(),
-            0,
-        )
+        self.assertEqual(grid.total_intensity(), 0)
 
         # Turn on one light
         grid.switch(
@@ -140,10 +133,7 @@ class TestCode(unittest.TestCase):
             i2=0,
             j2=0,
         )
-        self.assertEqual(
-            grid.total_intensity(),
-            1,
-        )
+        self.assertEqual(grid.total_intensity(), 1)
 
         # Toggle all ligths
         grid.switch(
@@ -153,10 +143,7 @@ class TestCode(unittest.TestCase):
             i2=999,
             j2=999,
         )
-        self.assertEqual(
-            grid.total_intensity(),
-            2_000_001,
-        )
+        self.assertEqual(grid.total_intensity(), 2_000_001)
 
 
 class TestPuzzle(unittest.TestCase):
@@ -196,10 +183,7 @@ class TestPuzzle(unittest.TestCase):
                 i2=i2,
                 j2=j2,
             )
-        self.assertEqual(
-            grid.total_intensity(),
-            377891,
-        )
+        self.assertEqual(grid.total_intensity(), 377891)
 
     def test_part_two(self) -> None:
         grid = Grid(
@@ -216,7 +200,4 @@ class TestPuzzle(unittest.TestCase):
                 i2=i2,
                 j2=j2,
             )
-        self.assertEqual(
-            grid.total_intensity(),
-            14110788,
-        )
+        self.assertEqual(grid.total_intensity(), 14110788)
