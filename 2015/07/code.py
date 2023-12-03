@@ -6,6 +6,8 @@ from typing import Iterable
 
 
 class ComputeError(Exception):
+    """Raised when the circuit is unable to compute the value of a wire."""
+
     def __init__(
         self,
         wire: str,
@@ -15,6 +17,9 @@ class ComputeError(Exception):
 
 
 class Circuit:
+    """Class representing a circuit comprising wires and gates. The
+    value of a wire can be computed by following a set of instructions."""
+
     def __init__(
         self,
         instructions: Iterable[str],
@@ -31,6 +36,9 @@ class Circuit:
         self,
         wire: str,
     ) -> int:
+        """Compute the value of a wire using recursion. Cache all
+        computed values to speed up the process."""
+
         # Wire already has a number
         if wire.isdigit():
             return int(wire)
@@ -41,18 +49,14 @@ class Circuit:
 
         # Signal to wire is another wire
         if self.connections[wire] in self.connections:
-            return self.compute(
-                self.connections[wire],
-            )
+            return self.compute(self.connections[wire])
 
         # Signal to wire is a NOT gate
         if parts := re.match(
             r"NOT (?P<value>[a-z]+|[0-9]+)",
             self.connections[wire],
         ):
-            value = self.compute(
-                parts.group("value"),
-            )
+            value = self.compute(parts.group("value"))
             return ~value + 2**16
 
         # Signal to wire is a binary gate
@@ -62,12 +66,8 @@ class Circuit:
             r"(?P<right>[a-z]+|[0-9]+$)",
             self.connections[wire],
         ):
-            left = self.compute(
-                parts.group("left"),
-            )
-            right = self.compute(
-                parts.group("right"),
-            )
+            left = self.compute(parts.group("left"))
+            right = self.compute(parts.group("right"))
             match parts.group("gate"):
                 case "AND":
                     return left & right
@@ -97,61 +97,19 @@ class TestCode(unittest.TestCase):
         )
 
     def test_compute(self) -> None:
-        self.assertEqual(
-            self.circuit.compute(
-                wire="d",
-            ),
-            72,
-        )
-        self.assertEqual(
-            self.circuit.compute(
-                wire="e",
-            ),
-            507,
-        )
-        self.assertEqual(
-            self.circuit.compute(
-                wire="f",
-            ),
-            492,
-        )
-        self.assertEqual(
-            self.circuit.compute(
-                wire="g",
-            ),
-            114,
-        )
-        self.assertEqual(
-            self.circuit.compute(
-                wire="h",
-            ),
-            65412,
-        )
-        self.assertEqual(
-            self.circuit.compute(
-                wire="i",
-            ),
-            65079,
-        )
-        self.assertEqual(
-            self.circuit.compute(
-                wire="x",
-            ),
-            123,
-        )
-        self.assertEqual(
-            self.circuit.compute(
-                wire="y",
-            ),
-            456,
-        )
+        self.assertEqual(self.circuit.compute(wire="d"), 72)
+        self.assertEqual(self.circuit.compute(wire="e"), 507)
+        self.assertEqual(self.circuit.compute(wire="f"), 492)
+        self.assertEqual(self.circuit.compute(wire="g"), 114)
+        self.assertEqual(self.circuit.compute(wire="h"), 65412)
+        self.assertEqual(self.circuit.compute(wire="i"), 65079)
+        self.assertEqual(self.circuit.compute(wire="x"), 123)
+        self.assertEqual(self.circuit.compute(wire="y"), 456)
 
     def test_compute_error(self) -> None:
         self.circuit.connections["z"] = "7 XOR 9"
         with self.assertRaises(ComputeError):
-            self.circuit.compute(
-                wire="z",
-            )
+            self.circuit.compute(wire="z")
 
 
 class TestPuzzle(unittest.TestCase):
@@ -162,18 +120,8 @@ class TestPuzzle(unittest.TestCase):
             )
 
     def test_part_one(self) -> None:
-        self.assertEqual(
-            self.circuit.compute(
-                wire="a",
-            ),
-            16076,
-        )
+        self.assertEqual(self.circuit.compute(wire="a"), 16076)
 
     def test_part_two(self) -> None:
         self.circuit.connections["b"] = "16076"
-        self.assertEqual(
-            self.circuit.compute(
-                wire="a",
-            ),
-            2797,
-        )
+        self.assertEqual(self.circuit.compute(wire="a"), 2797)
