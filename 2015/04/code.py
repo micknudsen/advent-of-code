@@ -20,20 +20,8 @@ def mine_coin(
 
 class TestCode(unittest.TestCase):
     def test_mine_coin(self) -> None:
-        self.assertEqual(
-            mine_coin(
-                "abcdef",
-                hardness=5,
-            ),
-            609043,
-        )
-        self.assertEqual(
-            mine_coin(
-                "pqrstuv",
-                hardness=5,
-            ),
-            1048970,
-        )
+        self.assertEqual(mine_coin("abcdef", hardness=5), 609043)
+        self.assertEqual(mine_coin("pqrstuv", hardness=5), 1048970)
 
 
 class TestPuzzle(unittest.TestCase):
@@ -42,19 +30,7 @@ class TestPuzzle(unittest.TestCase):
             self.key = f.read()
 
     def test_part_one(self) -> None:
-        self.assertEqual(
-            mine_coin(
-                key=self.key,
-                hardness=5,
-            ),
-            346386,
-        )
+        self.assertEqual(mine_coin(key=self.key, hardness=5), 346386)
 
     def test_part_two(self) -> None:
-        self.assertEqual(
-            mine_coin(
-                key=self.key,
-                hardness=6,
-            ),
-            9958218,
-        )
+        self.assertEqual(mine_coin(key=self.key, hardness=6), 9958218)
