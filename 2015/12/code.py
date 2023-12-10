@@ -26,3 +26,12 @@ class TestCode(unittest.TestCase):
         self.assertEqual(sum_numbers('[-1,{"a":1}]'), 0)
         self.assertEqual(sum_numbers("[]"), 0)
         self.assertEqual(sum_numbers("{}"), 0)
+
+
+class TestPuzzles(unittest.TestCase):
+    def setUp(self) -> None:
+        with open("input.txt") as f:
+            self.document = f.read().splitlines()[0]
+
+    def test_part_one(self) -> None:
+        self.assertEqual(sum_numbers(self.document), 119433)
