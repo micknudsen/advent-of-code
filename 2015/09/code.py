@@ -6,6 +6,10 @@ from typing import Dict, Iterable, Iterator
 
 
 class Map:
+    """Class representing a map of cities and all the pairwise
+    distances between them stored in a symmetric matrix implemented
+    as a dictionary of dictionaries."""
+
     def __init__(
         self,
         distances: Dict[str, Dict[str, int]],
@@ -37,6 +41,7 @@ class Map:
         return self._distances[source][destination]
 
     def route_lengths(self) -> Iterator[int]:
+        """Iterates through all possible routes and yileds their lengths."""
         for route in permutations(self._distances.keys()):
             yield (
                 sum(
@@ -46,9 +51,11 @@ class Map:
             )
 
     def shortest_route(self) -> int:
+        """Returns the length of the shortest route."""
         return min(self.route_lengths())
 
     def longest_route(self) -> int:
+        """Returns the length of the longest route."""
         return max(self.route_lengths())
 
 
