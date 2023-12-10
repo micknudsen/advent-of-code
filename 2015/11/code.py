@@ -4,6 +4,7 @@ from typing import Set
 
 
 def contains_increasing_straight(password: str) -> bool:
+    """Checks if the password contains an increasing straight of at least three letters."""
     for i in range(len(password) - 2):
         if ord(password[i]) + 1 == ord(password[i + 1]) and ord(password[i]) + 2 == ord(
             password[i + 2]
@@ -13,6 +14,7 @@ def contains_increasing_straight(password: str) -> bool:
 
 
 def contains_illegal_letters(password: str) -> bool:
+    """Checks if the password contains the illegal letters i, o or l."""
     for letter in password:
         if letter in ["i", "o", "l"]:
             return True
@@ -20,6 +22,7 @@ def contains_illegal_letters(password: str) -> bool:
 
 
 def contains_two_pairs(password: str) -> bool:
+    """Checks if the password contains at least two different, non-overlapping pairs of letters."""
     pairs: Set[str] = set()
     for x, y in zip(password, password[1:]):
         if x == y:
@@ -30,6 +33,8 @@ def contains_two_pairs(password: str) -> bool:
 
 
 def is_valid(password: str) -> bool:
+    """Checks if the password is valid. That is, it must satifisy the requirements
+    defined in the helper functions above."""
     return all(
         [
             contains_increasing_straight(password),
@@ -40,6 +45,7 @@ def is_valid(password: str) -> bool:
 
 
 def increment_password(password: str) -> str:
+    """Increments the password lexicographically."""
     letters = list(password[::-1])
     for i, letter in enumerate(letters):
         if letter == "z":
@@ -51,6 +57,8 @@ def increment_password(password: str) -> str:
 
 
 def next_password(password: str) -> str:
+    """Get the next valid password after the given one. Doing so by incrementing the
+    password until a valid one is found."""
     while True:
         password = increment_password(password)
         if is_valid(password):
