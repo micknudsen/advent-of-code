@@ -4,6 +4,9 @@ from itertools import groupby
 
 
 def say(number: str) -> str:
+    """Implementation of the look-and-say function. That is, the output is the number
+    obtained by reading the input number out loud, grouping identical digits together.
+    For example, reading 21 out loud is "one two, one one", which is 1211."""
     return "".join(f"{len(list(group))}{digit}" for digit, group in groupby(number))
 
 
@@ -25,16 +28,10 @@ class TestPuzzles(unittest.TestCase):
         solution = self.number
         for _ in range(40):
             solution = say(solution)
-        self.assertEqual(
-            len(solution),
-            492982,
-        )
+        self.assertEqual(len(solution), 492982)
 
     def test_part_two(self) -> None:
         solution = self.number
         for _ in range(50):
             solution = say(solution)
-        self.assertEqual(
-            len(solution),
-            6989950,
-        )
+        self.assertEqual(len(solution), 6989950)
