@@ -27,3 +27,8 @@ class TestCode(unittest.TestCase):
         self.assertTrue(contains_illegal_letters(password="hijklmmn"))
         self.assertFalse(contains_illegal_letters(password="abbceffg"))
         self.assertFalse(contains_illegal_letters(password="abbcegjk"))
+
+    def test_contains_two_pairs(self) -> None:
+        self.assertFalse(contains_two_pairs(password="hijklmmn"))
+        self.assertTrue(contains_two_pairs(password="abbceffg"))
+        self.assertFalse(contains_two_pairs(password="abbcegjk"))
