@@ -89,3 +89,12 @@ class TestCode(unittest.TestCase):
     def test_next_password(self) -> None:
         self.assertEqual(next_password(password="abcdefgh"), "abcdffaa")
         self.assertEqual(next_password(password="ghijklmn"), "ghjaabcc")
+
+
+class TestPuzzles(unittest.TestCase):
+    def setUp(self) -> None:
+        with open("input.txt") as f:
+            self.password = f.read().splitlines()[0]
+
+    def test_part_one(self) -> None:
+        self.assertEqual(next_password(self.password), "cqjxxyzz")
