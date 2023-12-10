@@ -3,17 +3,15 @@ import unittest
 
 
 def total(document: str) -> int:
-    data = json.loads(document)
-    result = 0
-    if isinstance(data, int):
-        return data
-    elif isinstance(data, list):
-        for entry in data:
-            result += total(json.dumps(entry))
-    elif isinstance(data, dict):
-        for key in data:
-            result += total(json.dumps(data[key]))
-    return result
+    match data := json.loads(document):
+        case int():
+            return data
+        case list():
+            return sum(total(json.dumps(entry)) for entry in data)
+        case dict():
+            return sum(total(json.dumps(data[key])) for key in data)
+        case _:
+            return 0
 
 
 class TestCode(unittest.TestCase):
