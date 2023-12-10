@@ -10,7 +10,7 @@ class Map:
         self,
         distances: Dict[str, Dict[str, int]],
     ) -> None:
-        self.distances = distances
+        self._distances = distances
 
     @classmethod
     def init_from_strings(
@@ -33,7 +33,7 @@ class Map:
         source: str,
         destination: str,
     ) -> int:
-        return self.distances[source][destination]
+        return self._distances[source][destination]
 
     def route_lengths(self) -> Iterable[int]:
         return (
@@ -41,7 +41,7 @@ class Map:
                 self.distance(source, destination)
                 for source, destination in zip(route, route[1:])
             )
-            for route in permutations(self.distances.keys())
+            for route in permutations(self._distances.keys())
         )
 
     def shortest_route(self) -> int:
