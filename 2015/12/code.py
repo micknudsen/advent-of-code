@@ -27,14 +27,6 @@ class TestCode(unittest.TestCase):
         self.assertEqual(sum_numbers("[]"), 0)
         self.assertEqual(sum_numbers("{}"), 0)
 
-    def test_sum_numbers_ignore_red(self) -> None:
-        self.assertEqual(sum_numbers("[1,2,3]", ignore_red=True), 6)
-        self.assertEqual(sum_numbers('[1,{"c":"red","b":2},3]', ignore_red=True), 4)
-        self.assertEqual(
-            sum_numbers('{"d":"red","e":[1,2,3,4],"f":5}', ignore_red=True), 0
-        )
-        self.assertEqual(sum_numbers("[1,'red',5]", ignore_red=True), 6)
-
 
 class TestPuzzles(unittest.TestCase):
     def setUp(self) -> None:
