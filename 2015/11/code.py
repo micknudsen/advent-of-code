@@ -98,3 +98,6 @@ class TestPuzzles(unittest.TestCase):
 
     def test_part_one(self) -> None:
         self.assertEqual(next_password(self.password), "cqjxxyzz")
+
+    def test_part_two(self) -> None:
+        self.assertEqual(next_password(next_password(self.password)), "cqkaabcc")
