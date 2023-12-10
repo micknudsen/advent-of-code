@@ -39,6 +39,24 @@ def is_valid(password: str) -> bool:
     )
 
 
+def increment_password(password: str) -> str:
+    letters = list(password[::-1])
+    for i, letter in enumerate(letters):
+        if letter == "z":
+            letters[i] = "a"
+        else:
+            letters[i] = chr(ord(letter) + 1)
+            break
+    return "".join(letters[::-1])
+
+
+def next_password(password: str) -> str:
+    while True:
+        password = increment_password(password)
+        if is_valid(password):
+            return password
+
+
 class TestCode(unittest.TestCase):
     def test_contains_increasing_straight(self) -> None:
         self.assertTrue(contains_increasing_straight(password="hijklmmn"))
@@ -61,6 +79,12 @@ class TestCode(unittest.TestCase):
         self.assertFalse(is_valid(password="abbcegjk"))
         self.assertTrue(is_valid(password="abcdffaa"))
         self.assertTrue(is_valid(password="ghjaabcc"))
+
+    def test_increment_password(self) -> None:
+        self.assertEqual(increment_password("xx"), "xy")
+        self.assertEqual(increment_password("xy"), "xz")
+        self.assertEqual(increment_password("xz"), "ya")
+        self.assertEqual(increment_password("ya"), "yb")
 
     def test_next_password(self) -> None:
         self.assertEqual(next_password(password="abcdefgh"), "abcdffaa")
