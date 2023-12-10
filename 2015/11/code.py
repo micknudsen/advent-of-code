@@ -44,3 +44,10 @@ class TestCode(unittest.TestCase):
         self.assertFalse(contains_two_pairs(password="hijklmmn"))
         self.assertTrue(contains_two_pairs(password="abbceffg"))
         self.assertFalse(contains_two_pairs(password="abbcegjk"))
+
+    def test_is_valid(self) -> None:
+        self.assertFalse(is_valid(password="hijklmmn"))
+        self.assertFalse(is_valid(password="abbceffg"))
+        self.assertFalse(is_valid(password="abbcegjk"))
+        self.assertTrue(is_valid(password="abcdffaa"))
+        self.assertTrue(is_valid(password="ghjaabcc"))
