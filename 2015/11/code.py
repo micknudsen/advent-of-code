@@ -29,6 +29,16 @@ def contains_two_pairs(password: str) -> bool:
     return False
 
 
+def is_valid(password: str) -> bool:
+    return all(
+        [
+            contains_increasing_straight(password),
+            not contains_illegal_letters(password),
+            contains_two_pairs(password),
+        ]
+    )
+
+
 class TestCode(unittest.TestCase):
     def test_contains_increasing_straight(self) -> None:
         self.assertTrue(contains_increasing_straight(password="hijklmmn"))
