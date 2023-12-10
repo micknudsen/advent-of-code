@@ -2,7 +2,7 @@ import unittest
 
 from collections import defaultdict
 from itertools import permutations
-from typing import Dict, Iterable
+from typing import Dict, Iterable, Iterator
 
 
 class Map:
@@ -33,16 +33,17 @@ class Map:
         source: str,
         destination: str,
     ) -> int:
+        """Returns the distance between two cities."""
         return self._distances[source][destination]
 
-    def route_lengths(self) -> Iterable[int]:
-        return (
-            sum(
-                self.distance(source, destination)
-                for source, destination in zip(route, route[1:])
+    def route_lengths(self) -> Iterator[int]:
+        for route in permutations(self._distances.keys()):
+            yield (
+                sum(
+                    self.distance(source, destination)
+                    for source, destination in zip(route, route[1:])
+                )
             )
-            for route in permutations(self._distances.keys())
-        )
 
     def shortest_route(self) -> int:
         return min(self.route_lengths())
