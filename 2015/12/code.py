@@ -1,15 +1,34 @@
 import json
 import unittest
 
+from typing import Optional
 
-def total(document: str) -> int:
+
+def total(
+    document: str,
+    ignore_red: Optional[bool] = False,
+) -> int:
     match data := json.loads(document):
         case int():
             return data
         case list():
-            return sum(total(json.dumps(entry)) for entry in data)
+            return sum(
+                total(
+                    json.dumps(entry),
+                    ignore_red=ignore_red,
+                )
+                for entry in data
+            )
         case dict():
-            return sum(total(json.dumps(data[key])) for key in data)
+            if ignore_red and "red" in data.values():
+                return 0
+            return sum(
+                total(
+                    json.dumps(data[key]),
+                    ignore_red=ignore_red,
+                )
+                for key in data
+            )
         case _:
             return 0
 
