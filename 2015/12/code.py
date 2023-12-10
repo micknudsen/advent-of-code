@@ -58,3 +58,6 @@ class TestPuzzles(unittest.TestCase):
 
     def test_part_one(self) -> None:
         self.assertEqual(total(self.document), 119433)
+
+    def test_part_two(self) -> None:
+        self.assertEqual(total(self.document, ignore_red=True), 68466)
