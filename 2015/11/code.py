@@ -15,3 +15,8 @@ class TestCode(unittest.TestCase):
         self.assertTrue(contains_increasing_straight(password="hijklmmn"))
         self.assertFalse(contains_increasing_straight(password="abbceffg"))
         self.assertFalse(contains_increasing_straight(password="abbcegjk"))
+
+    def test_contains_illegal_letters(self) -> None:
+        self.assertTrue(contains_illegal_letters(password="hijklmmn"))
+        self.assertFalse(contains_illegal_letters(password="abbceffg"))
+        self.assertFalse(contains_illegal_letters(password="abbcegjk"))
