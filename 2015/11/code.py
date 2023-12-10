@@ -10,6 +10,13 @@ def contains_increasing_straight(password: str) -> bool:
     return False
 
 
+def contains_illegal_letters(password: str) -> bool:
+    for letter in password:
+        if letter in ["i", "o", "l"]:
+            return True
+    return False
+
+
 class TestCode(unittest.TestCase):
     def test_contains_increasing_straight(self) -> None:
         self.assertTrue(contains_increasing_straight(password="hijklmmn"))
