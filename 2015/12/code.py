@@ -2,30 +2,30 @@ import json
 import unittest
 
 
-def sum_numbers(document: str) -> int:
+def total(document: str) -> int:
     data = json.loads(document)
     result = 0
     if isinstance(data, int):
         return data
     elif isinstance(data, list):
         for entry in data:
-            result += sum_numbers(json.dumps(entry))
+            result += total(json.dumps(entry))
     elif isinstance(data, dict):
         for key in data:
-            result += sum_numbers(json.dumps(data[key]))
+            result += total(json.dumps(data[key]))
     return result
 
 
 class TestCode(unittest.TestCase):
-    def test_sum_numbers(self) -> None:
-        self.assertEqual(sum_numbers("[1,2,3]"), 6)
-        self.assertEqual(sum_numbers('{"a":2,"b":4}'), 6)
-        self.assertEqual(sum_numbers("[[[3]]]"), 3)
-        self.assertEqual(sum_numbers('{"a":{"b":4},"c":-1}'), 3)
-        self.assertEqual(sum_numbers('{"a":[-1,1]}'), 0)
-        self.assertEqual(sum_numbers('[-1,{"a":1}]'), 0)
-        self.assertEqual(sum_numbers("[]"), 0)
-        self.assertEqual(sum_numbers("{}"), 0)
+    def test_total(self) -> None:
+        self.assertEqual(total("[1,2,3]"), 6)
+        self.assertEqual(total('{"a":2,"b":4}'), 6)
+        self.assertEqual(total("[[[3]]]"), 3)
+        self.assertEqual(total('{"a":{"b":4},"c":-1}'), 3)
+        self.assertEqual(total('{"a":[-1,1]}'), 0)
+        self.assertEqual(total('[-1,{"a":1}]'), 0)
+        self.assertEqual(total("[]"), 0)
+        self.assertEqual(total("{}"), 0)
 
 
 class TestPuzzles(unittest.TestCase):
@@ -34,4 +34,4 @@ class TestPuzzles(unittest.TestCase):
             self.document = f.read().splitlines()[0]
 
     def test_part_one(self) -> None:
-        self.assertEqual(sum_numbers(self.document), 119433)
+        self.assertEqual(total(self.document), 119433)
