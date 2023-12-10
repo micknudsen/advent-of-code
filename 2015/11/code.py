@@ -61,3 +61,7 @@ class TestCode(unittest.TestCase):
         self.assertFalse(is_valid(password="abbcegjk"))
         self.assertTrue(is_valid(password="abcdffaa"))
         self.assertTrue(is_valid(password="ghjaabcc"))
+
+    def test_next_password(self) -> None:
+        self.assertEqual(next_password(password="abcdefgh"), "abcdffaa")
+        self.assertEqual(next_password(password="ghijklmn"), "ghjaabcc")
