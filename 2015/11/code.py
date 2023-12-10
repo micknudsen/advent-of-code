@@ -1,5 +1,7 @@
 import unittest
 
+from typing import Set
+
 
 def contains_increasing_straight(password: str) -> bool:
     for i in range(len(password) - 2):
@@ -14,6 +16,16 @@ def contains_illegal_letters(password: str) -> bool:
     for letter in password:
         if letter in ["i", "o", "l"]:
             return True
+    return False
+
+
+def contains_two_pairs(password: str) -> bool:
+    pairs: Set[str] = set()
+    for x, y in zip(password, password[1:]):
+        if x == y:
+            pairs.add(x)
+            if len(pairs) == 2:
+                return True
     return False
 
 
