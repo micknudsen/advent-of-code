@@ -17,6 +17,8 @@ class Map:
         cls,
         strings: Iterable[str],
     ) -> "Map":
+        """Convenient way to initializa a Map instance from a
+        list of strings as given in the puzzle input."""
         distances: Dict[str, Dict[str, int]] = defaultdict(dict)
         for string in strings:
             source, _, destination, _, distance = string.split()
