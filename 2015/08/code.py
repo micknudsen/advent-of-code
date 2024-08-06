@@ -2,9 +2,7 @@ import ast
 import unittest
 
 
-def overhead(
-    string: str,
-) -> int:
+def overhead(string: str) -> int:
     """Every line on Santa's list is enclosed by double quotes and
     maybe contain some escaped characters. This function computes the
     overhead memory used for storing all this things compared to the
@@ -12,9 +10,7 @@ def overhead(
     return len(string) - len(ast.literal_eval(string))
 
 
-def increase(
-    string: str,
-) -> int:
+def increase(string: str) -> int:
     """Every entry on Santa's list must now be further encoded. This
     means enclosing the string literal in double quotes and escaping
     quotes and backslashes inside the string itself. This function

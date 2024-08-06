@@ -6,10 +6,7 @@ from typing import Iterable, Optional
 class InvalidInstructionError(Exception):
     """Raised when Santa receives an invalid instruction."""
 
-    def __init__(
-        self,
-        instruction: str,
-    ) -> None:
+    def __init__(self, instruction: str) -> None:
         self.message = f"Invalid instruction: {instruction}"
         super().__init__(self.message)
 
@@ -17,10 +14,7 @@ class InvalidInstructionError(Exception):
 class FloorNeverReachedError(Exception):
     """Raised when Santa never reaches the specified floor."""
 
-    def __init__(
-        self,
-        floor: int,
-    ) -> None:
+    def __init__(self, floor: int) -> None:
         self.message = f"Never reached floor: {floor}"
         super().__init__(self.message)
 

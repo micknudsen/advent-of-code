@@ -1,11 +1,7 @@
 import unittest
 
 
-def paper_needed(
-    length: int,
-    width: int,
-    height: int,
-) -> int:
+def paper_needed(length: int, width: int, height: int) -> int:
     """To wrap a box, the elves need to cover the surface area, and
     for some reason they also need a little extra paper with an area
     equal to the area of the smallest side of the box."""
@@ -18,11 +14,7 @@ def paper_needed(
     return 2 * sum(areas) + min(areas)
 
 
-def ribbon_needed(
-    length: int,
-    width: int,
-    height: int,
-) -> int:
+def ribbon_needed(length: int, width: int, height: int) -> int:
     """To wrap a box, the elves need a bow made out of ribbon. The
     required length is the smallest perimeter of any one face. An
     additional amount of ribbon of length equal to the volume of

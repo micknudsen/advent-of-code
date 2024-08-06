@@ -10,17 +10,11 @@ class Map:
     distances between them stored in a symmetric matrix implemented
     as a dictionary of dictionaries."""
 
-    def __init__(
-        self,
-        distances: Dict[str, Dict[str, int]],
-    ) -> None:
+    def __init__(self, distances: Dict[str, Dict[str, int]]) -> None:
         self._distances = distances
 
     @classmethod
-    def init_from_strings(
-        cls,
-        strings: Iterable[str],
-    ) -> "Map":
+    def init_from_strings(cls, strings: Iterable[str]) -> "Map":
         """Convenient way to initializa a Map instance from a
         list of strings as given in the puzzle input."""
         distances: Dict[str, Dict[str, int]] = defaultdict(dict)
@@ -32,11 +26,7 @@ class Map:
             distances=distances,
         )
 
-    def distance(
-        self,
-        source: str,
-        destination: str,
-    ) -> int:
+    def distance(self, source: str, destination: str) -> int:
         """Returns the distance between two cities."""
         return self._distances[source][destination]
 

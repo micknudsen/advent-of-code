@@ -2,10 +2,7 @@ import hashlib
 import unittest
 
 
-def mine_coin(
-    key: str,
-    hardness: int,
-) -> int:
+def mine_coin(key: str, hardness: int) -> int:
     """Given a key string, mining an AdventCoin requires finding a
     number (not starting with zero), such than the MD5 hash of the
     key followed by the number starts with a given number of zeros."""

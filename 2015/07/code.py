@@ -8,10 +8,7 @@ from typing import Iterable
 class ComputeError(Exception):
     """Raised when the circuit is unable to compute the value of a wire."""
 
-    def __init__(
-        self,
-        wire: str,
-    ) -> None:
+    def __init__(self, wire: str) -> None:
         self.message = f"Unable to compute wire: {wire}"
         super().__init__(self.message)
 
@@ -20,10 +17,7 @@ class Circuit:
     """Class representing a circuit comprising wires and gates. The
     value of a wire can be computed by following a set of instructions."""
 
-    def __init__(
-        self,
-        instructions: Iterable[str],
-    ) -> None:
+    def __init__(self, instructions: Iterable[str]) -> None:
         self.connections: dict[str, str] = dict(
             map(
                 lambda x: x.split(" -> ")[::-1],
@@ -32,10 +26,7 @@ class Circuit:
         )
 
     @functools.cache
-    def compute(
-        self,
-        wire: str,
-    ) -> int:
+    def compute(self, wire: str) -> int:
         """Compute the value of a wire using recursion. Cache all
         computed values to speed up the process."""
 

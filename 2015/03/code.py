@@ -7,10 +7,7 @@ from typing import Iterable, Set
 class InvalidDirectionError(Exception):
     """Raised when Santa is asked to go in a invalid direction."""
 
-    def __init__(
-        self,
-        direction: str,
-    ) -> None:
+    def __init__(self, direction: str) -> None:
         self.message = f"Invalid direction: {direction}"
         super().__init__(self.message)
 
@@ -31,9 +28,7 @@ class House:
         )
 
 
-def houses_visited(
-    directions: Iterable[str],
-) -> Set[House]:
+def houses_visited(directions: Iterable[str]) -> Set[House]:
     """Santa visits houses starting at (0, 0) based on directions. He
     can either go north ("^"), south ("v"), east (">"), or west ("<").
     He will refuse to go in any other direction, and he will raise an

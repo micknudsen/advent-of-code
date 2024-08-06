@@ -4,12 +4,10 @@ import unittest
 from typing import Optional
 
 
-def total(
-    document: str,
-    ignore_red: Optional[bool] = False,
-) -> int:
+def total(document: str, ignore_red: Optional[bool] = False) -> int:
     """Calculate the sum of all numbers in a JSON document. Optionally ignore all
     dictionary objects (and all their children) if they the contain the value 'red'."""
+
     match data := json.loads(document):
         case int():
             return data

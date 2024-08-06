@@ -8,10 +8,7 @@ from typing import Callable, List, Tuple
 class InvalidActionError(Exception):
     """Raised when the grid is asked to perform an invalid action."""
 
-    def __init__(
-        self,
-        action: str,
-    ) -> None:
+    def __init__(self, action: str) -> None:
         self.message = f"Invalid action: {action}"
         super().__init__(self.message)
 

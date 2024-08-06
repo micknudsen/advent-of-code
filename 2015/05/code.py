@@ -1,9 +1,7 @@
 import unittest
 
 
-def is_nice_first_attempt(
-    message: str,
-) -> bool:
+def is_nice_first_attempt(message: str) -> bool:
     """Santa has come up with a very sophisticated algorithm for determining
     whether a string is naughty or nice."""
 
@@ -31,9 +29,7 @@ def is_nice_first_attempt(
     return True
 
 
-def is_nice_second_attempt(
-    message: str,
-) -> bool:
+def is_nice_second_attempt(message: str) -> bool:
     """Realizing that the first algorithm was no good, Santa devises
     a completely new algorithm."""
 
