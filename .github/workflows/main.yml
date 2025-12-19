@@ -1,0 +1,45 @@
+name: CI
+
+on: [push]
+
+jobs:
+
+  tests:
+
+    name: "Tests"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.14"
+
+      - name: Check code quality and run unit tests
+        run: |
+
+          set -eou pipefail
+
+          # Install software
+          sudo apt-get install jq
+          pip install coverage mypy black
+
+          # Run tests one at a time
+          find $(pwd -P) -name code.py | sort -r | while read FILE;
+          do
+
+            echo "Processing $FILE"
+            cd $(dirname ${FILE})
+
+            # Check code quality
+            black --check code.py
+            mypy code.py
+
+            # Check code coverage
+            coverage run -m unittest code.py && coverage json
+            if [[ "$(cat coverage.json | jq .totals.percent_covered)" -ne "100" ]]; then
+              echo "Coverage is below 100%"
+              exit 1
+            fi
+
+          done
