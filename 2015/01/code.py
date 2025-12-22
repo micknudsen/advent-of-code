@@ -1,11 +1,15 @@
 import unittest
 
 
-class InvalidInstructionError(Exception):
+class AdventOfCodeError(Exception):
     pass
 
 
-class FloorNeverReachedError(Exception):
+class InvalidInstructionError(AdventOfCodeError):
+    pass
+
+
+class FloorNeverReachedError(AdventOfCodeError):
     pass
 
 
@@ -43,15 +47,15 @@ class TestCode(unittest.TestCase):
         self.assertEqual(deliver_presents(instructions=")))"), -3)
         self.assertEqual(deliver_presents(instructions=")())())"), -3)
 
-    def test_deliver_presents_with_stop(self) -> None:
+    def test_deliver_presents_with_stop_floor(self) -> None:
         self.assertEqual(deliver_presents(instructions=")", stop_floor=-1), 1)
         self.assertEqual(deliver_presents(instructions="()())", stop_floor=-1), 5)
 
-    def test_deliver_presents_invalid_instruction(self) -> None:
+    def test_deliver_presents_invalid_instruction_error(self) -> None:
         with self.assertRaises(InvalidInstructionError):
             deliver_presents(instructions=")[(")
 
-    def test_deliver_presents_with_stop_floor_never_reached(self) -> None:
+    def test_deliver_presents_floor_never_reached_error(self) -> None:
         with self.assertRaises(FloorNeverReachedError):
             deliver_presents(instructions="(", stop_floor=-1)
 
