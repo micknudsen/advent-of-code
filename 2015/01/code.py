@@ -40,7 +40,7 @@ def deliver(instructions: str, stop: int | None = None) -> int:
 
 
 class TestCode(unittest.TestCase):
-    def test_deliver_presents(self) -> None:
+    def test_deliver(self) -> None:
         self.assertEqual(deliver(instructions="(())"), 0)
         self.assertEqual(deliver(instructions="()()"), 0)
         self.assertEqual(deliver(instructions="((("), 3)
@@ -51,15 +51,15 @@ class TestCode(unittest.TestCase):
         self.assertEqual(deliver(instructions=")))"), -3)
         self.assertEqual(deliver(instructions=")())())"), -3)
 
-    def test_deliver_presents_with_stop_floor(self) -> None:
+    def test_deliver_with_stop(self) -> None:
         self.assertEqual(deliver(instructions=")", stop=-1), 1)
         self.assertEqual(deliver(instructions="()())", stop=-1), 5)
 
-    def test_deliver_presents_invalid_instruction_error(self) -> None:
+    def test_deliver_invalid_instruction_error(self) -> None:
         with self.assertRaises(InvalidInstructionError):
             deliver(instructions=")[(")
 
-    def test_deliver_presents_floor_never_reached_error(self) -> None:
+    def test_deliver_floor_never_reached_error(self) -> None:
         with self.assertRaises(FloorNeverReachedError):
             deliver(instructions="(", stop=-1)
 
