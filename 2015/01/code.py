@@ -14,6 +14,10 @@ class FloorNeverReachedError(AdventOfCodeError):
 
 
 def deliver(instructions: str, stop: int | None = None) -> int:
+    """Santa delivers presents based on the instructions provided. If `stop` is
+    provided, the function will return the position of the instruction that
+    causes Santa to reach the specified floor for the first time. Otherwise, it
+    will return the final floor after processing all instructions."""
 
     current = 0
 
