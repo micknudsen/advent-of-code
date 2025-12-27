@@ -13,51 +13,51 @@ class FloorNeverReachedError(AdventOfCodeError):
     pass
 
 
-def deliver_presents(instructions: str, stop_floor: int | None = None) -> int:
+def deliver(instructions: str, stop: int | None = None) -> int:
 
-    current_floor = 0
+    current = 0
 
     for count, instruction in enumerate(instructions, start=1):
         match instruction:
             case "(":
-                current_floor += 1
+                current += 1
             case ")":
-                current_floor -= 1
+                current -= 1
             case _:
                 raise InvalidInstructionError()
 
-        if current_floor == stop_floor:
+        if current == stop:
             return count
 
-    if stop_floor is not None:
+    if stop is not None:
         raise FloorNeverReachedError()
 
-    return current_floor
+    return current
 
 
 class TestCode(unittest.TestCase):
     def test_deliver_presents(self) -> None:
-        self.assertEqual(deliver_presents(instructions="(())"), 0)
-        self.assertEqual(deliver_presents(instructions="()()"), 0)
-        self.assertEqual(deliver_presents(instructions="((("), 3)
-        self.assertEqual(deliver_presents(instructions="(()(()("), 3)
-        self.assertEqual(deliver_presents(instructions="))((((("), 3)
-        self.assertEqual(deliver_presents(instructions="())"), -1)
-        self.assertEqual(deliver_presents(instructions="))("), -1)
-        self.assertEqual(deliver_presents(instructions=")))"), -3)
-        self.assertEqual(deliver_presents(instructions=")())())"), -3)
+        self.assertEqual(deliver(instructions="(())"), 0)
+        self.assertEqual(deliver(instructions="()()"), 0)
+        self.assertEqual(deliver(instructions="((("), 3)
+        self.assertEqual(deliver(instructions="(()(()("), 3)
+        self.assertEqual(deliver(instructions="))((((("), 3)
+        self.assertEqual(deliver(instructions="())"), -1)
+        self.assertEqual(deliver(instructions="))("), -1)
+        self.assertEqual(deliver(instructions=")))"), -3)
+        self.assertEqual(deliver(instructions=")())())"), -3)
 
     def test_deliver_presents_with_stop_floor(self) -> None:
-        self.assertEqual(deliver_presents(instructions=")", stop_floor=-1), 1)
-        self.assertEqual(deliver_presents(instructions="()())", stop_floor=-1), 5)
+        self.assertEqual(deliver(instructions=")", stop=-1), 1)
+        self.assertEqual(deliver(instructions="()())", stop=-1), 5)
 
     def test_deliver_presents_invalid_instruction_error(self) -> None:
         with self.assertRaises(InvalidInstructionError):
-            deliver_presents(instructions=")[(")
+            deliver(instructions=")[(")
 
     def test_deliver_presents_floor_never_reached_error(self) -> None:
         with self.assertRaises(FloorNeverReachedError):
-            deliver_presents(instructions="(", stop_floor=-1)
+            deliver(instructions="(", stop=-1)
 
 
 class TestPuzzle(unittest.TestCase):
@@ -66,9 +66,7 @@ class TestPuzzle(unittest.TestCase):
             self.instructions = f.read()
 
     def test_part_one(self) -> None:
-        self.assertEqual(deliver_presents(instructions=self.instructions), 232)
+        self.assertEqual(deliver(instructions=self.instructions), 232)
 
     def test_part_two(self) -> None:
-        self.assertEqual(
-            deliver_presents(instructions=self.instructions, stop_floor=-1), 1783
-        )
+        self.assertEqual(deliver(instructions=self.instructions, stop=-1), 1783)
