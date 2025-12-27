@@ -2,6 +2,8 @@ import unittest
 
 
 def paper_needed(length: int, width: int, height: int) -> int:
+    """The total square feet of wrapping paper needed for a present
+    is the surface area of the box plus the area of the smallest side."""
 
     areas = [
         length * width,
@@ -13,6 +15,8 @@ def paper_needed(length: int, width: int, height: int) -> int:
 
 
 def ribbon_needed(length: int, width: int, height: int) -> int:
+    """The ribbon needed to wrap a present is the shortest distance
+    around its sides plus the volume of the box."""
 
     perimeters = [
         2 * (length + width),
