@@ -1,7 +1,7 @@
 import unittest
 
 
-def paper_needed(length: int, width: int, height: int) -> int:
+def paper(length: int, width: int, height: int) -> int:
     """The total square feet of wrapping paper needed for a present
     is the surface area of the box plus the area of the smallest side."""
 
@@ -14,7 +14,7 @@ def paper_needed(length: int, width: int, height: int) -> int:
     return 2 * sum(areas) + min(areas)
 
 
-def ribbon_needed(length: int, width: int, height: int) -> int:
+def ribbon(length: int, width: int, height: int) -> int:
     """The ribbon needed to wrap a present is the shortest distance
     around its sides plus the volume of the box."""
 
@@ -30,13 +30,13 @@ def ribbon_needed(length: int, width: int, height: int) -> int:
 
 
 class TestCode(unittest.TestCase):
-    def test_paper_needed(self) -> None:
-        self.assertEqual(paper_needed(length=2, width=3, height=4), 58)
-        self.assertEqual(paper_needed(length=1, width=1, height=10), 43)
+    def test_paper(self) -> None:
+        self.assertEqual(paper(length=2, width=3, height=4), 58)
+        self.assertEqual(paper(length=1, width=1, height=10), 43)
 
-    def test_ribbon_needed(self) -> None:
-        self.assertEqual(ribbon_needed(length=2, width=3, height=4), 34)
-        self.assertEqual(ribbon_needed(length=1, width=1, height=10), 14)
+    def test_ribbon(self) -> None:
+        self.assertEqual(ribbon(length=2, width=3, height=4), 34)
+        self.assertEqual(ribbon(length=1, width=1, height=10), 14)
 
 
 class TestPuzzle(unittest.TestCase):
@@ -47,12 +47,8 @@ class TestPuzzle(unittest.TestCase):
         with open("input.txt") as f:
             for dimension in f.read().splitlines():
                 length, width, height = map(int, dimension.split("x"))
-                self.total_paper += paper_needed(
-                    length=length, width=width, height=height
-                )
-                self.total_ribbon += ribbon_needed(
-                    length=length, width=width, height=height
-                )
+                self.total_paper += paper(length=length, width=width, height=height)
+                self.total_ribbon += ribbon(length=length, width=width, height=height)
 
     def test_part_one(self) -> None:
         self.assertEqual(self.total_paper, 1586300)
